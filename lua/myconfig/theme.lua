@@ -35,7 +35,6 @@ lvim.builtin.lualine.sections.lualine_c = {
       unnamed = '[No Name]', -- Text to show for unnamed buffers.
     }
   },
-  components.location,
   components.diff,
   components.python_env,
 }

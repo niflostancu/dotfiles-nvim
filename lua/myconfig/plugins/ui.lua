@@ -94,7 +94,6 @@ lvimPlugin({
         right_sep = { '', hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg } },
       },
     }
-
     require('tabby').setup {
       tabline = preset,
     }
@@ -102,7 +101,8 @@ lvimPlugin({
   requires = {
     {'nvim-lualine/lualine.nvim', opt = true},
     {'kyazdani42/nvim-web-devicons', opt = true}
-  }
+  },
+  after = "lualine.nvim",
 })
 
 lvim.keys.normal_mode["<S-h>"] = "<Cmd>tabprevious<CR>"
