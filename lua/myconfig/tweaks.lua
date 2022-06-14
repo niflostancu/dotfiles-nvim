@@ -33,6 +33,19 @@ vim.opt.switchbuf = "useopen,usetab"  -- Switch to open buffer's window / tab
 vim.opt.diffopt="filler,iwhite"  -- Diff mode: show fillers, ignore white
 vim.opt.hlsearch = true
 
+require("lvim.core.autocmds").clear_augroup("_format_options")
+vim.opt.formatoptions = {
+    ["1"] = true,
+    ["2"] = true, -- Use indent from 2nd line of a paragraph
+    q = true,  -- continue comments with gq"
+    c = true,  -- Auto-wrap comments using textwidth
+    r = true,  -- Continue comments when pressing Enter
+    n = true,  -- Recognize numbered lists
+    t = false, -- autowrap lines using text width value
+    j = true,  -- remove a comment leader when joining lines.
+    l = true,  -- Long lines are not broken in insert mode
+}
+
 -- open help in vert split
 vim.api.nvim_create_autocmd("BufEnter", {
   group = myconfigroup, pattern="*.txt",
