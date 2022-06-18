@@ -53,7 +53,6 @@ lvim.builtin.bufferline.active = false
 lvimPlugin({
   "nanozuki/tabby.nvim",
   config = function()
-    local filename = require('tabby.filename')
     local util = require('tabby.util')
     local hl_tabline_fill = util.extract_nvim_hl('lualine_c_normal') -- 背景
     local hl_tabline = util.extract_nvim_hl('lualine_b_normal')
@@ -63,7 +62,7 @@ lvimPlugin({
       local icon = active and '' or ''
       local number = vim.api.nvim_tabpage_get_number(tabid)
       local name = util.get_tab_name(tabid)
-      return string.format(' %s %d: %s ', icon, number, name)
+      return string.format('%d: %s ', number, name)
     end
 
     local preset = {
@@ -80,7 +79,7 @@ lvimPlugin({
             hl = { fg = hl_tabline_sel.fg, bg = hl_tabline_sel.bg, style = 'bold' },
           }
         end,
-        left_sep = { '', hl = { fg = hl_tabline_sel.bg, bg = hl_tabline_fill.bg } },
+        left_sep = { ' ', hl = { fg = hl_tabline_sel.bg, bg = hl_tabline_fill.bg } },
         right_sep = { '', hl = { fg = hl_tabline_sel.bg, bg = hl_tabline_fill.bg } },
       },
       inactive_tab = {
@@ -90,7 +89,7 @@ lvimPlugin({
             hl = { fg = hl_tabline.fg, bg = hl_tabline.bg, style = 'bold' },
           }
         end,
-        left_sep = { '', hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg } },
+        left_sep = { ' ', hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg } },
         right_sep = { '', hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg } },
       },
     }
