@@ -10,7 +10,8 @@ function lvimPlugin(pluginCfg)
 end
 
 local pluginCategories = {
-  "editing", "find", "project", "code_diag", "versioning", "ui"
+  "editing", "find", "project", "code_diag", "versioning",
+  "ui", "session"
 }
 
 for _, name in ipairs(pluginCategories) do
