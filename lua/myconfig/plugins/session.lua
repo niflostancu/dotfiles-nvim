@@ -3,7 +3,7 @@
 ]]
 
 
-vim.opt.sessionoptions = { "blank", "buffers", "help", "tabpages", "winsize"}
+vim.opt.sessionoptions = { "blank", "buffers", "help", "tabpages"}
 
 lvimPlugin({
   'jedrzejboczar/possession.nvim',
@@ -16,7 +16,7 @@ lvimPlugin({
       debug = false,
       prompt_no_cr = false,
       autosave = {
-        current = false,
+        current = true,
         tmp = false,
         tmp_name = 'tmp',
         on_load = true,
@@ -47,13 +47,7 @@ lvimPlugin({
             custom = false,  -- or fun(win): boolean
           },
         },
-        delete_hidden_buffers = {
-          hooks = {
-            'before_load',
-            vim.o.sessionoptions:match('buffer') and 'before_save',
-          },
-          force = false,
-        },
+        delete_hidden_buffers = false,
         nvim_tree = true,
         tabby = true,
         delete_buffers = false,
