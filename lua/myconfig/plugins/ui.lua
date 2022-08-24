@@ -32,11 +32,11 @@ lvimPlugin({ "lukas-reineke/indent-blankline.nvim",
   end
 })
 
--- auto-resize focused splits for nvim based on golden ratio
+--- auto-resize focused splits for nvim based on golden ratio
 lvimPlugin({ "beauwilliams/focus.nvim", 
   config = function()
     require("focus").setup({
-      excluded_buftypes = {"help"},
+      -- excluded_buftypes = {"help"},
       excluded_filetypes = {"toggleterm", "TelescopePrompt", "Trouble"}
     })
   end
