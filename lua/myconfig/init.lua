@@ -18,6 +18,8 @@ vim.env.NVIM_RPLUGIN_MANIFEST = _G.join_paths(_G.get_runtime_dir(), "rplugin.vim
 myconfigroup = "_myconfig_"
 vim.api.nvim_create_augroup(myconfigroup, {})
 
+vim.opt.rtp:append(_G.join_paths(_G.myconfigpath, "after"))
+
 -- modular files for each aspect of [Lunar]Vim's configuration
 require("myconfig.tweaks")
 require("myconfig.keymappings")
