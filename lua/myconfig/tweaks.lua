@@ -32,6 +32,7 @@ vim.opt.breakat = " \t;:,!?"        -- Long lines break chars
 vim.opt.switchbuf = "useopen,usetab"  -- Switch to open buffer's window / tab
 vim.opt.diffopt="filler,iwhite"  -- Diff mode: show fillers, ignore white
 vim.opt.hlsearch = true
+vim.opt.signcolumn = "yes"
 
 require("lvim.core.autocmds").clear_augroup("_format_options")
 vim.opt.formatoptions = {
@@ -58,8 +59,9 @@ lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.lualine.extensions = { "nvim-tree" }
+lvim.builtin.nvimtree.setup.diagnostics.enable = false
 lvim.builtin.nvimtree.setup.view.side = "left"
---lvim.builtin.nvimtree.show_icons.git = 0
+lvim.builtin.nvimtree.setup.view.signcolumn = 'no'
 
 -- autocmds to highlight the cursor line from the active window only
 vim.api.nvim_create_autocmd("WinLeave", {
