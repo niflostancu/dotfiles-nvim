@@ -2,6 +2,9 @@
   Language-specific / IDE features configuration.
 ]]
 
+-- enable debugging
+lvim.builtin.dap.active = true
+
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
   "bash", "c", "javascript", "json", "lua", "python", "typescript", "tsx",
@@ -38,4 +41,19 @@ lvimPlugin({
   "simrat39/symbols-outline.nvim",
   cmd = "SymbolsOutline",
 })
+
+lvim.builtin.which_key.mappings["l"]["o"] = {
+  "<cmd>SymbolsOutline<cr>", "Symbols Outline"}
+
+-- lvim.lsp.automatic_configuration.skipped_servers = {}
+-- lvim.lsp.automatic_configuration.skipped_filetypes = {}
+
+-- load configs for individual languages
+local languages = {
+  "c", "text"
+}
+
+for _, name in ipairs(languages) do
+  local pluginMod = require("myconfig.lang." .. name)
+end
 
