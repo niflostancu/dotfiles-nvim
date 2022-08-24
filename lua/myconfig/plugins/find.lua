@@ -99,6 +99,10 @@ myconfig.which_key.find.mappings = {
   },
 }
 
+-- Map Telescope's command_history as Ctrl+T in Command mode
+vim.api.nvim_set_keymap('c', '<C-t>',
+  [[<Cmd>lua require('telescope.builtin').command_history()<CR>]], {})
+
 -- Spectre Find & Replace plugin
 lvimPlugin({
   "nvim-pack/nvim-spectre",
