@@ -36,6 +36,7 @@ lvimPlugin({ "lukas-reineke/indent-blankline.nvim",
 lvimPlugin({ "beauwilliams/focus.nvim", 
   config = function()
     require("focus").setup({
+      signcolumn = false,
       -- excluded_buftypes = {"help"},
       excluded_filetypes = {"toggleterm", "TelescopePrompt", "Trouble"}
     })
