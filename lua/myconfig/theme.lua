@@ -7,9 +7,9 @@ vim.o.background = "dark"
 lvimPlugin({ "olimorris/onedarkpro.nvim", 
   config = function ()
     require('onedarkpro').load()
+    vim.api.nvim_set_hl(0, "StatusLine", { fg = "NONE", bg = "NONE" })
   end
 })
-
 lvim.colorscheme = "onedarkpro"
 
 -- Lualine customizations
