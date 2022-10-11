@@ -2,6 +2,9 @@
   User interface plugins.
 ]]
 
+-- Notifications (nvim-notify) config
+lvim.builtin.notify.opts.max_width = 80
+
 -- tmux integration
 lvimPlugin({ "aserowy/tmux.nvim",
   config = function()
@@ -23,14 +26,11 @@ lvimPlugin({ "aserowy/tmux.nvim",
 })
 
 -- add indentation guidelines (using nvim's virtual text feature)
-lvimPlugin({ "lukas-reineke/indent-blankline.nvim", 
-  config = function() 
-    require("indent_blankline").setup {
-      show_current_context = true,
-      show_current_context_start = true,
-    }
-  end
-})
+-- note: indent-blankline is now bundled with LunarVim
+lvim.builtin.indentlines.options = {
+  show_current_context = true,
+  show_current_context_start = true,
+}
 
 --- auto-resize focused splits for nvim based on golden ratio
 lvimPlugin({ "beauwilliams/focus.nvim", 
