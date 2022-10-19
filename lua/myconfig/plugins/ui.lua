@@ -54,49 +54,17 @@ lvim.builtin.bufferline.active = false
 lvimPlugin({
   "nanozuki/tabby.nvim",
   config = function()
-    local util = require('tabby.util')
-    local hl_tabline_fill = util.extract_nvim_hl('lualine_c_normal') -- 背景
-    local hl_tabline = util.extract_nvim_hl('lualine_b_normal')
-    local hl_tabline_sel = util.extract_nvim_hl('lualine_a_normal') -- 高亮
-
-    local function tab_label(tabid, active)
-      local icon = active and '' or ''
-      local number = vim.api.nvim_tabpage_get_number(tabid)
-      local name = util.get_tab_name(tabid)
-      return string.format('%d: %s ', number, name)
-    end
-
-    local preset = {
-      hl = 'TabLineFill',
-      layout = 'tab_only',
-      head = {
-        { '  ', hl = { fg = hl_tabline.fg, bg = hl_tabline.bg } },
-        { '', hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg } },
-      },
-      active_tab = {
-        label = function(tabid)
-          return {
-            tab_label(tabid, true),
-            hl = { fg = hl_tabline_sel.fg, bg = hl_tabline_sel.bg, style = 'bold' },
-          }
-        end,
-        left_sep = { ' ', hl = { fg = hl_tabline_sel.bg, bg = hl_tabline_fill.bg } },
-        right_sep = { '', hl = { fg = hl_tabline_sel.bg, bg = hl_tabline_fill.bg } },
-      },
-      inactive_tab = {
-        label = function(tabid)
-          return {
-            tab_label(tabid, false),
-            hl = { fg = hl_tabline.fg, bg = hl_tabline.bg, style = 'bold' },
-          }
-        end,
-        left_sep = { ' ', hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg } },
-        right_sep = { '', hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg } },
-      },
-    }
-    require('tabby').setup {
-      tabline = preset,
-    }
+    local tabhl = { bg = "#98c379", fg = "#000000" }
+    require('tabby.tabline').use_preset('tab_only', {
+      theme = {
+        fill = 'TabLineFill',
+        head = 'TabLine',
+        current_tab = tabhl,
+        tab = 'TabLine',
+        win = 'TabLine',
+        tail = 'TabLine',
+      }
+    })
   end,
   requires = {
     {'nvim-lualine/lualine.nvim', opt = true},
