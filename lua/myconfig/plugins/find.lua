@@ -4,25 +4,29 @@
 
 -- builtin Telescope customization
 
-local telescope_defaults = {
-  theme = "ivy",
-  sorting_strategy = "ascending",
-  layout_strategy = "bottom_pane",
-  layout_config = {
-    height = 25,
-  },
-  border = true,
-  borderchars = {
-    prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
-    results = { " " },
-    preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+local telescope_cfg = {
+  defaults = {
+    theme = "ivy",
+    sorting_strategy = "ascending",
+    layout_strategy = "bottom_pane",
+    layout_config = {
+      height = 25,
+    },
+    path_display = { truncate = 3 },
+    dynamic_preview_title = true,
+    border = true,
+    borderchars = {
+      prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
+      results = { " " },
+      preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    },
   },
 }
 lvim.builtin.telescope.pickers = { buffers = {} }
 
 local ok, actions = pcall(require, "telescope.actions")
 if ok then
-  telescope_defaults.mappings = {
+  telescope_cfg.defaults.mappings = {
     n = {
       ["<C-c>"] = actions.close,
     },
@@ -32,8 +36,8 @@ if ok then
     i = { ["C-d"] = require("telescope.actions").delete_buffer }
   }
 end
-lvim.builtin.telescope.defaults = vim.tbl_deep_extend("force",
-  lvim.builtin.telescope.defaults, telescope_defaults)
+lvim.builtin.telescope = vim.tbl_deep_extend("force",
+  lvim.builtin.telescope, telescope_cfg)
 
 -- advanced telescope config (load third party extensions)
 lvim.builtin.telescope.on_config_done = function(telescope)
@@ -78,7 +82,8 @@ myconfig.which_key.find.mappings = {
     "[Telescope] Buffers (all)"
   },
   ["f"] = {
-    "<cmd>Telescope find_files<cr>", "[Telescope] Find File"
+    function() require('telescope.builtin').find_files() end,
+    "[Telescope] Find File"
   },
   ["F"] = {
     "<cmd>Telescope oldfiles<cr>", "[Telescope] Old Files"
