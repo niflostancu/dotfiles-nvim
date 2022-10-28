@@ -2,9 +2,6 @@
   User interface plugins.
 ]]
 
--- Notifications (nvim-notify) config
-lvim.builtin.notify.opts.max_width = 80
-
 -- tmux integration
 lvimPlugin({ "aserowy/tmux.nvim",
   config = function()

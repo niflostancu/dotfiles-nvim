@@ -56,7 +56,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 -- Settings for lvim's core plugins 
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.lualine.extensions = { "nvim-tree" }
 lvim.builtin.nvimtree.setup.diagnostics.enable = false
