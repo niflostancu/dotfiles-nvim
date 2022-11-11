@@ -50,7 +50,7 @@ lvim.builtin.which_key.mappings["l"]["o"] = {
 
 -- load configs for individual languages
 local languages = {
-  "c", "php", "golang", "text"
+  "c", "php", "golang", "conf", "text"
 }
 
 for _, name in ipairs(languages) do
