@@ -7,7 +7,7 @@ vim.o.background = "dark"
 lvimPlugin({ "olimorris/onedarkpro.nvim", 
   config = function ()
     require('onedarkpro').load()
-    vim.api.nvim_set_hl(0, "StatusLine", { fg = "NONE", bg = "NONE" })
+    vim.api.nvim_set_hl(0, "StatusLine", { fg = "#6CC644", bg = "NONE" })
   end
 })
 lvim.colorscheme = "onedarkpro"
@@ -16,7 +16,6 @@ lvim.colorscheme = "onedarkpro"
 local components = require("lvim.core.lualine.components")
 local conditions = require("lvim.core.lualine.conditions")
 
-lvim.builtin.lualine.options.theme = 'onedark'
 lvim.builtin.lualine.style = 'lvim'
 lvim.builtin.lualine.sections.lualine_a = { components.mode }
 lvim.builtin.lualine.sections.lualine_b = {
@@ -61,4 +60,11 @@ lvim.builtin.lualine.sections.lualine_y = {
   }
 }
 lvim.builtin.lualine.sections.lualine_z = { "location", "progress", components.scrollbar }
+
+-- workaround for setting lualine theme
+lvim.builtin.lualine.on_config_done = function()
+  require('lualine').setup({
+    options = { theme = 'onedark' }
+  })
+end
 
