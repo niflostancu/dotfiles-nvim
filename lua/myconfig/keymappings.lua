@@ -28,6 +28,11 @@ lvim.keys.visual_block_mode["K"] = false
 -- nvimtree / telesope / other finder bindings with ';'
 lvim.keys.normal_mode["<F3>"] = "<Cmd>NvimTreeToggle<CR>"
 
+-- Yank all lines to clipboard
+lvim.builtin.which_key.mappings["y"] = {
+  '<Cmd>%y+<CR>', "Yank all to +clipboard",
+}
+
 -- register custom, top-level which_key mappings
 -- format: { [mappings], [opts] }
 myconfig.which_key = {}
