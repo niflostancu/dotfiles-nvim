@@ -2,6 +2,15 @@
   Text editing helper plugins + configurations.
 ]]
 
+-- LunarVim's BigFile configuration
+lvim.builtin.bigfile.config = {
+  filesize = 2, -- MiB
+  pattern = { "*" },
+  features = { -- features to disable
+    "indent_blankline", "illuminate", "lsp", "treesitter", "vimopts",
+  },
+}
+
 -- Neovim clipboard provider
 lvimPlugin({
   "matveyt/neoclip",
