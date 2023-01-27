@@ -10,7 +10,7 @@ function lvimPlugin(pluginCfg)
 end
 
 local pluginCategories = {
-  "editing", "find", "project", "code_diag", "versioning",
+  "editing", "find", "project", "code_diag", "versioning", "file_management",
   "ui", "session"
 }
 

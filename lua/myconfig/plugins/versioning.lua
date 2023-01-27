@@ -2,8 +2,6 @@
   Version Control System (e.g., git / hg) integration plugins.
 ]]
 
-lvim.builtin.nvimtree.setup.renderer.icons.git_placement = "after"
-
 -- Neogit - Magit clone for Nvim
 lvimPlugin({
   "TimUntersberger/neogit",

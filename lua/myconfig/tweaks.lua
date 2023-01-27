@@ -57,10 +57,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
-lvim.builtin.lualine.extensions = { "nvim-tree" }
-lvim.builtin.nvimtree.setup.diagnostics.enable = false
-lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.setup.view.signcolumn = 'no'
 
 -- autocmds to highlight the cursor line from the active window only
 vim.api.nvim_create_autocmd("WinLeave", {
