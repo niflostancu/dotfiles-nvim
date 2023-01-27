@@ -13,7 +13,7 @@ lvimPlugin({
 -- clipboard history manager using Telescope
 lvimPlugin({
   "AckslD/nvim-neoclip.lua",
-  requires = {'nvim-telescope/telescope.nvim'},
+  dependencies = {'nvim-telescope/telescope.nvim'},
   config = function()
     require('neoclip').setup({
         keys = {
@@ -45,7 +45,7 @@ lvimPlugin({ "ggandor/leap.nvim",
   config = function()
     require('leap').set_default_keymaps()
   end,
-  requires = { { "tpope/vim-repeat" } },
+  dependencies = { { "tpope/vim-repeat" } },
 })
 
 -- Highlight plugin for '/' text search
@@ -79,7 +79,7 @@ lvimPlugin({
     })
     require("scrollbar.handlers.search").setup()
   end,
-  requires = { "kevinhwang91/nvim-hlslens" }
+  dependencies = { "kevinhwang91/nvim-hlslens" }
 })
 
 -- Sleuth - automatic indentation detection

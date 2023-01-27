@@ -48,7 +48,7 @@ end
 -- Telescope buffers + MRU files as buffers replacement
 lvimPlugin({
   "nvim-telescope/telescope-frecency.nvim",
-  requires = {"tami5/sqlite.lua"}
+  dependencies = {"tami5/sqlite.lua"}
 })
 
 -- register a new top-level mappings with find-related commands

@@ -7,7 +7,7 @@ lvim.builtin.nvimtree.setup.renderer.icons.git_placement = "after"
 -- Neogit - Magit clone for Nvim
 lvimPlugin({
   "TimUntersberger/neogit",
-  requires = {'nvim-lua/plenary.nvim', "sindrets/diffview.nvim" },
+  dependencies = {'nvim-lua/plenary.nvim', "sindrets/diffview.nvim" },
   config = function()
     require('neogit').setup({
       integrations = { diffview = true }
@@ -31,7 +31,7 @@ lvim.builtin.which_key.mappings["g"]["l"] = {
 -- Whole-tab diff view
 lvimPlugin {
   "sindrets/diffview.nvim",
-  requires = {'nvim-lua/plenary.nvim'},
+  dependencies = {'nvim-lua/plenary.nvim'},
   config = function()
     require('diffview').setup({})
   end

@@ -63,9 +63,9 @@ lvimPlugin({
       }
     })
   end,
-  requires = {
+  dependencies = {
     {'nvim-lualine/lualine.nvim', opt = true},
-    {'kyazdani42/nvim-web-devicons', opt = true}
+    {'nvim-tree/nvim-web-devicons', opt = true}
   },
   after = "lualine.nvim",
 })
