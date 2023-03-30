@@ -26,14 +26,27 @@ lvim.builtin.telescope.pickers = { buffers = {} }
 
 local ok, actions = pcall(require, "telescope.actions")
 if ok then
+  local action_state = require("telescope.actions.state")
+  local myactions = {}
+  myactions.open_in_nvr = function()
+    -- local current_picker = action_state.get_current_picker(prompt_bufnr)
+    local entry = action_state.get_selected_entry()
+    require("myconfig.utils.nvr").remote_open(entry.path)
+  end
+
   telescope_cfg.defaults.mappings = {
     n = {
       ["<C-c>"] = actions.close,
+      ["<C-e>"] = myactions.open_in_nvr,
+    },
+    i = {
+      ["<C-c>"] = actions.close,
+      ["<C-e>"] = myactions.open_in_nvr,
     },
   }
   lvim.builtin.telescope.pickers.buffers.mappings = {
-    n = { ["dd"] = require("telescope.actions").delete_buffer },
-    i = { ["C-d"] = require("telescope.actions").delete_buffer }
+    n = { ["dd"] = actions.delete_buffer },
+    i = { ["C-d"] = actions.delete_buffer }
   }
 end
 lvim.builtin.telescope = vim.tbl_deep_extend("force",
@@ -88,6 +101,13 @@ myconfig.which_key.find.mappings = {
       previewer = false,
     }) end,
     "[Telescope] Buffers (all)"
+  },
+  ["e"] = {
+    function()
+      local bufpath = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
+      require("myconfig.utils.nvr").remote_open(bufpath)
+    end,
+    "[Telescope] Find File"
   },
   ["f"] = {
     function() require('telescope.builtin').find_files() end,
