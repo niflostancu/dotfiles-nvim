@@ -58,6 +58,10 @@ lvim.builtin.which_key.mappings['t'] = {
   "Switch to last tab"
 }
 
+lvim.keys.normal_mode['<C-q>'] = function()
+  require("myconfig.utils.nvr").capture_mode()
+end
+
 -- go to tab by number
 for i = 1, 9 do
   lvim.keys.normal_mode["g" .. i] = function()
