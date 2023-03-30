@@ -25,13 +25,18 @@ lvim.keys.normal_mode["<C-Right>"] = "<C-w>l"
 lvim.keys.visual_block_mode["J"] = false
 lvim.keys.visual_block_mode["K"] = false
 
--- nvimtree / telesope / other finder bindings with ';'
+-- nvimtree / telescope / other finder bindings with ';'
 lvim.keys.normal_mode["<F3>"] = "<Cmd>NvimTreeToggle<CR>"
 
 -- Yank all lines to clipboard
 lvim.builtin.which_key.mappings["y"] = {
   '<Cmd>%y+<CR>', "Yank all to +clipboard",
 }
+-- enable some useful presets
+lvim.builtin.which_key.setup.plugins.presets.windows = true
+lvim.builtin.which_key.setup.plugins.presets.nav = true
+lvim.builtin.which_key.setup.plugins.presets.z = true
+lvim.builtin.which_key.setup.plugins.presets.g = false
 
 -- register custom, top-level which_key mappings
 -- format: { [mappings], [opts] }
@@ -43,7 +48,7 @@ lvim.builtin.which_key.on_config_done = function()
   end
 end
 
--- record (via autocommand) & bindings to switch to the previous tab
+-- autocommand to record tab on change + bindings to switch to the previous tab
 vim.api.nvim_create_autocmd("TabLeave", {
   group = myconfigroup, pattern = "*",
   callback = function() vim.g.lasttab = vim.fn.tabpagenr() end,
