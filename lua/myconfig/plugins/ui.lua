@@ -73,3 +73,15 @@ lvimPlugin({
 lvim.keys.normal_mode["<S-h>"] = "<Cmd>tabprevious<CR>"
 lvim.keys.normal_mode["<S-l>"] = "<Cmd>tabnext<CR>"
 
+--- Zen Mode plugin
+lvimPlugin({ "folke/zen-mode.nvim", 
+  config = function()
+    require("zen-mode").setup({
+      plugins = {
+        gitsigns = { enabled = true },
+        tmux = { enabled = true },
+      }
+    })
+  end
+})
+
