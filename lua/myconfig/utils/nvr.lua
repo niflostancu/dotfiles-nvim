@@ -37,11 +37,47 @@ local function get_user_input()
   return true
 end
 
+local shade_overlay_win = nil
+local function destroy_shade_overlay()
+  if shade_overlay_win == nil then
+    return
+  end
+  vim.api.nvim_win_close(shade_overlay_win.winid, true)
+  shade_overlay_win = nil
+end
+local function create_shade_overlay()
+  destroy_shade_overlay()
+  local window = {}
+  local config = {
+    relative  = "editor",
+    style     = "minimal",
+    focusable = false,
+    row    = 1,
+    col    = 1,
+    width  = vim.o.columns - 1,
+    height = vim.o.lines - 1,
+    zindex = 100,
+  }
+  window.wincfg = config
+  window.bufid = vim.api.nvim_create_buf(false, true)
+  window.winid = vim.api.nvim_open_win(window.bufid, true, config)
+  shade_overlay_win = window
+
+  vim.api.nvim_command("highlight! NVRShadeOverlay gui='nocombine' guibg=None")
+  vim.api.nvim_win_set_option(window.winid, "winhighlight", "Normal:NVRShadeOverlay")
+  vim.api.nvim_win_set_option(window.winid, "winblend", 30)
+  vim.cmd("redraw")
+end
+
 function M.capture_mode()
+  create_shade_overlay()
+  print("NVR capture started!")
   local continue_mode = true
   while continue_mode do
     continue_mode = get_user_input()
   end
+  destroy_shade_overlay()
+  print("NVR capture stopped!")
 end
 
 return M
