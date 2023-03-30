@@ -75,14 +75,13 @@ myconfig.which_key.find.mappings = {
   name = "[find]",
   ["a"] = {
     function()
-      api = require('nvim-tree.api')
-      api.tree.open()
+      local api = require('nvim-tree.api')
       api.tree.find_file({
         path = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()),
-        focus = true
+        focus = true, open = true
       })
     end,
-    "[NvimTree] Show current file"
+    "[NvimTree] Find current file"
   },
   ["b"] = {
     -- function() require('telescope').extensions.frecency.frecency()
