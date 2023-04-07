@@ -2,18 +2,31 @@
   File explorer / tree plugins and configuration.
 ]]
 
--- builtin nvim-tree plugin, disable auto CWD modifications
+-- use per-tab working directories
+lvim.builtin.project.scope_chdir = "tab"
 
+-- remove package files, add pseudo '.vim-root' for manual overrides
+lvim.builtin.project.patterns = {
+  ".git", ".hg", ".bzr", ".svn", ".vim-root"
+}
+
+-- nvimtree plugin personalization
 local nvimtree_overrides = {
   -- UI tweaks
   diagnostics = {enable = false},
   renderer = {icons = {git_placement = "after"}},
   view = {side = "left", signcolumn = 'no' },
-  -- change global (per-tab) working dir on ChangeDir action
-  actions = {change_dir = {global = true}},
+  -- note: sync root cwd doesn't work without this :(
+  actions = {change_dir = {enable = true}},
+  -- settings for tab-based workflow / Project.nvim integration
   sync_root_with_cwd = true,
-  -- disable annoying cd on focus feature
-  update_focused_file = { enable = false },
+  reload_on_bufenter = true,
+  respect_buf_cwd = true,
+  update_focused_file = {
+    enable = true,
+    update_root = true,
+    ignore_list = { "", "fzf", "help", "qf", "lspinfo", "undotree" },
+  },
 }
 
 -- custom nvimtree mappings
@@ -28,10 +41,17 @@ local nvim_tree_attach = function(bufnr)
     require('myconfig.utils.nvr').remote_open(node.absolute_path)
   end
 
+  local function nvimtree_cd()
+    -- TODO: override project dir (per tab) on manual nvim-tree CD
+    local node = api.tree.get_node_under_cursor()
+    vim.cmd('tcd ' .. node.absolute_path)
+    api.tree.change_root_to_node(node)
+  end
+
   api.config.mappings.default_on_attach(bufnr)
   vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'))
   vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts('Close Node'))
-  vim.keymap.set('n', 'C', api.tree.change_root_to_node, opts('CD'))
+  vim.keymap.set('n', 'C', nvimtree_cd, opts('CD'))
   vim.keymap.set('n', '<C-e>', nvimtree_open_in_nvr, opts('Open in NVR instance'))
   vim.keymap.set('n', '<Tab>', nvimtree_open_in_nvr, opts('Open in NVR instance'))
 end
@@ -41,10 +61,10 @@ nvimtree_overrides.on_attach = nvim_tree_attach
 -- enable lualine's nvim-tree integration
 lvim.builtin.lualine.extensions = { "nvim-tree" }
 
-lvim.builtin.nvimtree.on_config_done = function()
-  lvim.builtin.nvimtree.setup = vim.tbl_deep_extend("force", lvim.builtin.nvimtree.setup, nvimtree_overrides)
-  require("nvim-tree").setup(lvim.builtin.nvimtree.setup)
-end
+lvim.builtin.nvimtree.setup = vim.tbl_deep_extend("force", lvim.builtin.nvimtree.setup, nvimtree_overrides)
 
--- TODO: override project dir (per tab) on manual nvim-tree CD
+-- lvim.builtin.nvimtree.on_config_done = function()
+--   lvim.builtin.nvimtree.setup = vim.tbl_deep_extend("force", lvim.builtin.nvimtree.setup, nvimtree_overrides)
+--   require("nvim-tree").setup(lvim.builtin.nvimtree.setup)
+-- end
 

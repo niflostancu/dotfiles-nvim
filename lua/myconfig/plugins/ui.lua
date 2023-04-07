@@ -64,10 +64,9 @@ lvimPlugin({
     })
   end,
   dependencies = {
-    {'nvim-lualine/lualine.nvim', opt = true},
-    {'nvim-tree/nvim-web-devicons', opt = true}
+    {'nvim-lualine/lualine.nvim', lazy = true},
+    {'nvim-tree/nvim-web-devicons', lazy = true}
   },
-  after = "lualine.nvim",
 })
 
 lvim.keys.normal_mode["<S-h>"] = "<Cmd>tabprevious<CR>"
