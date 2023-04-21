@@ -16,9 +16,8 @@ local nvimtree_overrides = {
   diagnostics = {enable = false},
   renderer = {icons = {git_placement = "after"}},
   view = {side = "left", signcolumn = 'no' },
-  -- note: sync root cwd doesn't work without this :(
-  actions = {change_dir = {enable = true}},
   -- settings for tab-based workflow / Project.nvim integration
+  actions = {change_dir = {enable = false}},
   sync_root_with_cwd = true,
   reload_on_bufenter = true,
   respect_buf_cwd = true,
@@ -51,6 +50,7 @@ local nvim_tree_attach = function(bufnr)
   api.config.mappings.default_on_attach(bufnr)
   vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'))
   vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts('Close Node'))
+  vim.keymap.set('n', '<S-h>', "<Cmd>tabprevious<CR>", opts('Previous Tab'))
   vim.keymap.set('n', 'C', nvimtree_cd, opts('CD'))
   vim.keymap.set('n', '<C-e>', nvimtree_open_in_nvr, opts('Open in NVR instance'))
   vim.keymap.set('n', '<Tab>', nvimtree_open_in_nvr, opts('Open in NVR instance'))
