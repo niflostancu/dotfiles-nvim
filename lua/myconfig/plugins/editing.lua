@@ -11,44 +11,6 @@ lvim.builtin.bigfile.config = {
   },
 }
 
--- Neovim clipboard provider
-lvimPlugin({
-  "matveyt/neoclip",
-  config = function ()
-    
-  end
-})
-
--- clipboard history manager using Telescope
-lvimPlugin({
-  "AckslD/nvim-neoclip.lua",
-  dependencies = {'nvim-telescope/telescope.nvim'},
-  config = function()
-    require('neoclip').setup({
-        keys = {
-          telescope = {
-            i = {
-              select = '<cr>',
-              paste = '<c-p>',
-              paste_behind = '<c-k>',
-              replay = '<c-q>', -- replay a macro
-              delete = '<c-d>', -- delete an entry
-              custom = {},
-            },
-            n = {
-              select = '<cr>',
-              paste = 'p',
-              paste_behind = 'P',
-              replay = 'q',
-              delete = 'd',
-              custom = {},
-            }
-          }
-        }
-      })
-  end,
-})
-
 -- `s` motions (similar to Sneak / EasyMotion / Lightspeed)
 lvimPlugin({ "ggandor/leap.nvim",
   config = function()
