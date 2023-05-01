@@ -10,6 +10,15 @@ lvim.builtin.which_key.mappings["L"]["c"] = {
   "Edit myconfig",
 }
 
+-- <leader>C to change tab directory to current file
+lvim.builtin.which_key.mappings["C"] = {
+  function()
+    local file_dir = vim.fn.expand('%:h')
+    vim.cmd("tcd" .. vim.fn.fnameescape(file_dir))
+  end,
+  "Change Dir to current file",
+}
+
 -- save with ctrl-s
 lvim.keys.normal_mode["<C-s>"] = "<Cmd>w<CR>"
 lvim.keys.insert_mode["<C-s>"] = "<Cmd>w<CR>"
