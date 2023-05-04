@@ -68,3 +68,8 @@ vim.api.nvim_create_autocmd("WinEnter", {
   callback = function() vim.wo.cursorline = true end,
 })
 
+-- NERD Icons 3.0 workarounds
+lvim.icons.kind.Folder = "󰉋"
+lvim.icons.ui.Folder = "󰉋"
+lvim.builtin.nvimtree.setup.renderer.icons.glyphs.folder.default = lvim.icons.ui.Folder
+
