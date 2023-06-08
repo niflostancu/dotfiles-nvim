@@ -2,7 +2,7 @@
   Code diagnostic / testing plugins.
 ]]
 
-lvim.lsp.diagnostics.virtual_text = true
+vim.diagnostic.config({ virtual_text = true })
 
 lvimPlugin({
   "folke/trouble.nvim",
