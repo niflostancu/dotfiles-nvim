@@ -58,6 +58,10 @@ lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
 
+-- Delete Lunarvim's resize hook, buggy when resizing (e.g., tmux splitting)
+-- https://github.com/LunarVim/LunarVim/issues/3007
+vim.api.nvim_del_augroup_by_name('_auto_resize')
+
 -- autocmds to highlight the cursor line from the active window only
 vim.api.nvim_create_autocmd("WinLeave", {
   group = myconfigroup, pattern = "*",
