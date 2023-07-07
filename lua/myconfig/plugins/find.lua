@@ -40,6 +40,7 @@ if ok then
       ["<C-e>"] = myactions.open_in_nvr,
     },
     i = {
+      ["jj"] = { "<esc>jj", type = "command" },
       ["<C-c>"] = actions.close,
       ["<C-e>"] = myactions.open_in_nvr,
     },
@@ -68,6 +69,11 @@ lvimPlugin({
 myconfig.which_key.find = {
   mappings = {},
   opts = { mode = 'n', prefix = ';', noremap = true, nowait = true,
+    silent = true }
+}
+myconfig.which_key.find_visual = {
+  mappings = {},
+  opts = { mode = 'v', prefix = ';', noremap = true, nowait = true,
     silent = true }
 }
 -- note: more mappings are defined by [[code_diag.lua]]
@@ -128,6 +134,17 @@ myconfig.which_key.find.mappings = {
   [";"] = {
     "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
     "[LSP] Workspace Symbols"
+  },
+}
+
+myconfig.which_key.find_visual.mappings = {
+  name = "[find-v]",
+  ["g"] = {
+    function()
+      local text = require('myconfig.utils.selection').get_visual_selection()
+      require('telescope.builtin').grep_string { default_text = text }
+    end,
+    "[Telescope] Grep Selection"
   },
 }
 
