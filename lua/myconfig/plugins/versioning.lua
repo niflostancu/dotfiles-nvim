@@ -2,13 +2,16 @@
   Version Control System (e.g., git / hg) integration plugins.
 ]]
 
+if (false) then
 -- Neogit - Magit clone for Nvim
 lvimPlugin({
-  "TimUntersberger/neogit",
+  "NeogitOrg/neogit",
   dependencies = {'nvim-lua/plenary.nvim', "sindrets/diffview.nvim" },
   config = function()
     require('neogit').setup({
-      integrations = { diffview = true }
+      integrations = { diffview = true },
+      auto_show_console = true,
+      disable_builtin_notifications = true,
     })
   end
 })
@@ -25,6 +28,7 @@ lvim.builtin.which_key.mappings["g"]["l"] = {
   function() require('neogit').open({ "log", kind = "split" }) end,
   "[Neogit] Open (split)"
 }
+end
 
 -- Whole-tab diff view
 lvimPlugin {
