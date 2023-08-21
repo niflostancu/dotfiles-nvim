@@ -14,7 +14,10 @@ lvim.builtin.bigfile.config = {
 -- `s` motions (similar to Sneak / EasyMotion / Lightspeed)
 lvimPlugin({ "ggandor/leap.nvim",
   config = function()
-    require('leap').set_default_keymaps()
+    local leap = require('leap')
+    leap.opts.highlight_unlabeled_phase_one_targets = true
+    leap.opts.safe_labels = {}
+    leap.set_default_keymaps()
   end,
   dependencies = { { "tpope/vim-repeat" } },
 })
