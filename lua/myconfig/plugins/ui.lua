@@ -30,14 +30,40 @@ lvim.builtin.indentlines.options = {
 }
 
 --- auto-resize focused splits for nvim based on golden ratio
-lvimPlugin({ "beauwilliams/focus.nvim", 
+lvimPlugin({ "beauwilliams/focus.nvim",
+  branch = "refactor",
   config = function()
     require("focus").setup({
-      signcolumn = false,
-      -- excluded_buftypes = {"help"},
-      excluded_filetypes = {"toggleterm", "TelescopePrompt", "Trouble"}
+      ui = {
+        signcolumn = false,
+      }
     })
   end
+})
+
+-- disable Focus.nvim for specific file / buffer types
+local ignore_filetypes = { 'neo-tree', "NvimTree" }
+local ignore_buftypes = {
+  'nofile', 'prompt', 'popup', "toggleterm", "TelescopePrompt", "Trouble"
+}
+local augroup = vim.api.nvim_create_augroup('FocusDisable', { clear = true })
+vim.api.nvim_create_autocmd('WinEnter', {
+    group = augroup,
+    callback = function(_)
+        if vim.tbl_contains(ignore_buftypes, vim.bo.buftype) then
+            vim.b.focus_disable = true
+        end
+    end,
+    desc = 'Disable focus autoresize for BufType',
+})
+vim.api.nvim_create_autocmd('FileType', {
+    group = augroup,
+    callback = function(_)
+        if vim.tbl_contains(ignore_filetypes, vim.bo.filetype) then
+            vim.b.focus_disable = true
+        end
+    end,
+    desc = 'Disable focus autoresize for FileType',
 })
 
 -- disable builtin bufferline plugin (prefer tabs)
@@ -73,7 +99,7 @@ lvim.keys.normal_mode["<S-h>"] = "<Cmd>tabprevious<CR>"
 lvim.keys.normal_mode["<S-l>"] = "<Cmd>tabnext<CR>"
 
 --- Zen Mode plugin
-lvimPlugin({ "folke/zen-mode.nvim", 
+lvimPlugin({ "folke/zen-mode.nvim",
   config = function()
     require("zen-mode").setup({
       plugins = {
