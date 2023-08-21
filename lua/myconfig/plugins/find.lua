@@ -94,7 +94,8 @@ myconfig.which_key.find.mappings = {
     function() require('telescope.builtin').buffers({
       only_cwd = true,
       sort_mru = true,
-      sort_lastused = true,
+      -- sort_lastused = true,
+      ignore_current_buffer = true,
       previewer = false,
     }) end,
     "[Telescope] Buffers (cwd)"
