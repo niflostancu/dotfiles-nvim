@@ -9,6 +9,7 @@ lvim.format_on_save = false
 vim.opt.fileformats = "unix,dos,mac"
 vim.opt.clipboard = ""
 vim.opt.cmdheight = 1
+vim.opt.ruler = false
 vim.opt.visualbell = true
 vim.opt.virtualedit = "block"
 
