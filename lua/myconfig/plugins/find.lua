@@ -53,17 +53,19 @@ end
 lvim.builtin.telescope = vim.tbl_deep_extend("force",
   lvim.builtin.telescope, telescope_cfg)
 
--- advanced telescope config (load third party extensions)
-lvim.builtin.telescope.on_config_done = function(telescope)
-  telescope.load_extension "neoclip"
-  telescope.load_extension "frecency"
-end
-
--- Telescope buffers + MRU files as buffers replacement
+-- Telescope buffers + MRU files as buffers replacement (disabled)
+if 0 then
 lvimPlugin({
   "nvim-telescope/telescope-frecency.nvim",
   dependencies = {"tami5/sqlite.lua"}
 })
+end
+
+-- advanced telescope config (load third party extensions)
+lvim.builtin.telescope.on_config_done = function(telescope)
+  telescope.load_extension "neoclip"
+  -- telescope.load_extension "frecency"
+end
 
 -- register a new top-level mappings with find-related commands
 myconfig.which_key.find = {
