@@ -49,3 +49,16 @@ lvimPlugin({
   ft = { "fugitive" }
 })
 
+--- Git conflict marker highlighting + solve bindings
+lvimPlugin({
+  'akinsho/git-conflict.nvim',
+  version = "*",
+  config = function()
+    require('git-conflict').setup({
+      list_opener = function()
+        require('trouble').open('quickfix')
+      end
+    })
+  end
+})
+
