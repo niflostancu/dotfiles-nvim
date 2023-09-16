@@ -26,6 +26,7 @@ require("myconfig.keymappings")
 require("myconfig.plugins")
 require("myconfig.lang")
 require("myconfig.theme")
+require("myconfig.gui")
 
 -- TODO: inspect / steal from https://github.com/askfiy/nvim
 -- TODO: https://github.com/abzcoding/lvim
