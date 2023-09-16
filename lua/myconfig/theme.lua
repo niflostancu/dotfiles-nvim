@@ -4,13 +4,23 @@
 
 vim.o.background = "dark"
 
-lvimPlugin({ "olimorris/onedarkpro.nvim", 
+lvimPlugin({ "olimorris/onedarkpro.nvim",
+  priority = 1000,
   config = function ()
-    require('onedarkpro').load()
-    vim.api.nvim_set_hl(0, "StatusLine", { fg = "#6CC644", bg = "NONE" })
+    require('onedarkpro').setup({
+      highlight_inactive_windows = true,
+      transparency = true,
+      highlights = {
+        -- Comment = {
+        --   fg = { onedark = "${yellow}", onelight = "${my_new_red}" }
+        -- }
+      }
+    })
   end
 })
-lvim.colorscheme = "onedarkpro"
+lvim.colorscheme = "onedark"
+
+vim.api.nvim_set_hl(0, "StatusLine", { fg = "#6CC644", bg = "NONE" })
 
 -- Lualine customizations
 local components = require("lvim.core.lualine.components")
