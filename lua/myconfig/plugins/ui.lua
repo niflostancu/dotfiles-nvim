@@ -109,7 +109,14 @@ lvimPlugin({ "folke/zen-mode.nvim",
       plugins = {
         gitsigns = { enabled = true },
         tmux = { enabled = true },
-      }
+      },
+      on_open = function(win)
+        vim.g.neovide_scale_factor_old = vim.g.neovide_scale_factor
+        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.5
+      end,
+      on_close = function()
+        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor_old
+      end,
     })
   end
 })
