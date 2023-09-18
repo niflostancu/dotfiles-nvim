@@ -4,6 +4,10 @@
 
 lvim.leader = "space"
 
+-- Which key UI
+lvim.builtin.which_key.setup.window.winblend = vim.g.mycfg_float_winblend
+lvim.builtin.which_key.setup.window.border = "none"
+
 -- modify <leader>Lc to edit this `myconfig`
 lvim.builtin.which_key.mappings["L"]["c"] = {
   "<cmd>edit " .. get_config_dir() .. "/lua/myconfig/init.lua<cr>",

@@ -7,6 +7,7 @@
 local telescope_cfg = {
   defaults = {
     theme = "ivy",
+    winblend = vim.g.mycfg_float_winblend + 10,
     sorting_strategy = "ascending",
     layout_strategy = "bottom_pane",
     layout_config = {

@@ -137,6 +137,12 @@ lvimPlugin({ "folke/noice.nvim",
         inc_rename = false, -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = false, -- add a border to hover docs and signature help
       },
+      views = {
+        mini = {
+          winblend = vim.g.mycfg_float_winblend,
+          winhighlight = {},
+        },
+      },
       cmdline = { view = "cmdline", },
       messages = {
         view = "mini",

@@ -1,4 +1,15 @@
+--[[
+  Completion-related plugins / configuration.
+]]
 
+-- I like a bit of transparency
+vim.o.pumblend = vim.g.mycfg_float_winblend
+
+-- LunarVim uses nvim-cmp, disable its floating win customizations
+lvim.builtin.cmp.window.completion = { }
+lvim.builtin.cmp.window.documentation = { }
+
+-- Conqueror of Completion
 lvimPlugin({
   "ms-jpq/coq_nvim",
   branch = "coq",

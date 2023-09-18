@@ -65,7 +65,7 @@ local function create_shade_overlay()
 
   vim.api.nvim_command("highlight! NVRShadeOverlay gui='nocombine' guibg=None")
   vim.api.nvim_win_set_option(window.winid, "winhighlight", "Normal:NVRShadeOverlay")
-  vim.api.nvim_win_set_option(window.winid, "winblend", 30)
+  vim.api.nvim_win_set_option(window.winid, "winblend", vim.g.mycfg_float_winblend * 2)
   vim.cmd("redraw")
 end
 
