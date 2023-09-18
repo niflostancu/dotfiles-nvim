@@ -8,6 +8,8 @@ lvim.leader = "space"
 lvim.builtin.which_key.setup.window.winblend = vim.g.mycfg_float_winblend
 lvim.builtin.which_key.setup.window.border = "none"
 
+vim.o.timeoutlen = 300
+
 -- modify <leader>Lc to edit this `myconfig`
 lvim.builtin.which_key.mappings["L"]["c"] = {
   "<cmd>edit " .. get_config_dir() .. "/lua/myconfig/init.lua<cr>",
@@ -46,10 +48,13 @@ lvim.builtin.which_key.mappings["y"] = {
   '<Cmd>%y+<CR>', "Yank all to +clipboard",
 }
 -- enable some useful presets
+lvim.builtin.which_key.setup.plugins.presets.operators = true
+lvim.builtin.which_key.setup.plugins.presets.motions = true
+lvim.builtin.which_key.setup.plugins.presets.text_objects = true
 lvim.builtin.which_key.setup.plugins.presets.windows = true
 lvim.builtin.which_key.setup.plugins.presets.nav = true
 lvim.builtin.which_key.setup.plugins.presets.z = true
-lvim.builtin.which_key.setup.plugins.presets.g = false
+lvim.builtin.which_key.setup.plugins.presets.g = true
 
 -- register custom, top-level which_key mappings
 -- format: { [mappings], [opts] }
