@@ -5,28 +5,35 @@
 -- builtin Telescope customization
 
 local telescope_cfg = {
+  theme = "dropdown",
   defaults = {
-    theme = "ivy",
     winblend = vim.g.mycfg_float_winblend + 10,
     sorting_strategy = "ascending",
-    layout_strategy = "bottom_pane",
+    -- layout_strategy = "bottom_pane",
+    layout_strategy = "horizontal",
     layout_config = {
-      height = 25,
+      horizontal = {
+        prompt_position = "bottom",
+        preview_width = 0.55,
+        results_width = 0.6,
+      },
+      vertical = {
+        mirror = false,
+      },
+      width = 0.75,
+      height = 0.70,
+      preview_cutoff = 100,
     },
     path_display = { truncate = 3 },
     dynamic_preview_title = true,
-    border = true,
-    borderchars = {
-      prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
-      results = { " " },
-      preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-    },
+    -- use flat border
+    borderchars = {" ", " ", " ", " ", " ", " ", " ", " "}
   },
 }
 lvim.builtin.telescope.pickers = { buffers = {} }
 
-local ok, actions = pcall(require, "telescope.actions")
-if ok then
+local actions_ok, actions = pcall(require, "telescope.actions")
+if actions_ok then
   local action_state = require("telescope.actions.state")
   local myactions = {}
   myactions.open_in_nvr = function()

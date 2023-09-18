@@ -10,10 +10,15 @@ lvimPlugin({ "olimorris/onedarkpro.nvim",
     require('onedarkpro').setup({
       highlight_inactive_windows = true,
       transparency = true,
+      colors = {
+        telescope_pr_bg = "require('onedarkpro.helpers').darken('black', 10)",
+      },
       highlights = {
-        -- Comment = {
-        --   fg = { onedark = "${yellow}", onelight = "${my_new_red}" }
-        -- }
+        -- TelescopePromptBorder = { bg = "${bg}", fg = "${fg}" },
+        -- TelescopePromptCounter = { fg = "${black}", bg = "${telescope_pr_bg}" },
+        TelescopePromptNormal = { fg = "${yellow}" },
+        -- TelescopePromptPrefix = { fg = "${fg}", bg = "${telescope_pr_bg}" },
+        -- TelescopePromptTitle = { fg = "${fg}", bg = "${bg}" },
       }
     })
   end
