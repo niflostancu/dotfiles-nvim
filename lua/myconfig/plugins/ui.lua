@@ -112,7 +112,7 @@ lvimPlugin({ "folke/zen-mode.nvim",
       },
       on_open = function(win)
         vim.g.neovide_scale_factor_old = vim.g.neovide_scale_factor
-        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.5
+        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + vim.g.myconfig_zen_add_scale
       end,
       on_close = function()
         vim.g.neovide_scale_factor = vim.g.neovide_scale_factor_old
@@ -120,6 +120,7 @@ lvimPlugin({ "folke/zen-mode.nvim",
     })
   end
 })
+vim.g.myconfig_zen_add_scale = 0.2
 lvim.keys.normal_mode["<S-z>"] = "<Cmd>ZenMode<CR>"
 
 -- Noice.nvim: messages & cmdline replacement!
