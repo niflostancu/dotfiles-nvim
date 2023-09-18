@@ -5,10 +5,6 @@
   :PackerInstall and :PackerCompile. 
 ]]
 
-function lvimPlugin(pluginCfg)
-  table.insert(lvim.plugins, pluginCfg)
-end
-
 local pluginCategories = {
   "editing", "clipboard", "find", "code_diag", "autocomplete", "versioning", "file_management",
   "ui", "session"

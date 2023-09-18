@@ -4,6 +4,8 @@
 
 _G.myconfig = {}
 
+require("myconfig.utils.plugins")
+
 lvim.log.level = "warn"
 -- use for debugging
 --lvim.log.level = "debug"
@@ -21,12 +23,12 @@ vim.api.nvim_create_augroup(myconfigroup, {})
 vim.opt.rtp:append(_G.join_paths(_G.myconfigpath, "after"))
 
 -- modular files for each aspect of [Lunar]Vim's configuration
+require("myconfig.theme")
+require("myconfig.gui")
 require("myconfig.tweaks")
 require("myconfig.keymappings")
 require("myconfig.plugins")
 require("myconfig.lang")
-require("myconfig.theme")
-require("myconfig.gui")
 
 -- TODO: inspect / steal from https://github.com/askfiy/nvim
 -- TODO: https://github.com/abzcoding/lvim
