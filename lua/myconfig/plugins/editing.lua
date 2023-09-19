@@ -42,6 +42,16 @@ lvimPlugin({
   end
 })
 
+-- Sentiment - enhanced match parenthesis
+lvimPlugin({
+  "utilyre/sentiment.nvim", version = "*",
+  event = "VeryLazy",
+  opts = {},
+  init = function()
+    vim.g.loaded_matchparen = 1
+  end,
+})
+
 -- Scrollbar with diagnostics / search hints
 lvimPlugin({
   "petertriho/nvim-scrollbar",
@@ -63,7 +73,7 @@ lvimPlugin({ "tpope/vim-sleuth" })
 -- lvimPlugin({ "gpanders/editorconfig.nvim" })
 
 -- Guess indent (auto disabled)
-lvimPlugin({ "NMAC427/guess-indent.nvim", 
+lvimPlugin({ "NMAC427/guess-indent.nvim",
   config = function() require('guess-indent').setup { auto_cmd = false } end,
 })
 

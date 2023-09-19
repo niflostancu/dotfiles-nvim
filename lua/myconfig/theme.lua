@@ -11,9 +11,11 @@ lvimPlugin({ "olimorris/onedarkpro.nvim",
       highlight_inactive_windows = true,
       transparency = true,
       colors = {
+        parentheses = "require('onedarkpro.helpers').darken('blue', 50, 'onedark')",
         telescope_pr_bg = "require('onedarkpro.helpers').darken('black', 10)",
       },
       highlights = {
+        MatchParen = { fg = "${parentheses}", bg = "${highlight}", bold = true },
         -- TelescopePromptBorder = { bg = "${bg}", fg = "${fg}" },
         -- TelescopePromptCounter = { fg = "${black}", bg = "${telescope_pr_bg}" },
         TelescopePromptNormal = { fg = "${yellow}" },
