@@ -7,7 +7,6 @@ lvim.format_on_save = false
 
 -- Standard vim options
 vim.opt.fileformats = "unix,dos,mac"
-vim.opt.clipboard = ""
 vim.opt.cmdheight = 1
 vim.opt.ruler = false
 vim.opt.visualbell = true

@@ -2,12 +2,24 @@
   Clipboard-related plugins / configurations.
 ]]
 
+vim.opt.clipboard = "unnamed"
 
 -- Neovim clipboard provider
 lvimPlugin({
   "matveyt/neoclip",
   config = function ()
     -- nothing here, yet
+  end
+})
+
+-- Peek registers
+lvimPlugin({
+  'gennaro-tedesco/nvim-peekup',
+  config = function()
+    local cfg = require('nvim-peekup.config')
+    cfg.geometry['width'] = 0.6
+    cfg.geometry['height'] = 0.6
+    cfg.on_keystroke["delay"] = '300ms'
   end
 })
 
