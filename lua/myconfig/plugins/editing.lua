@@ -77,3 +77,17 @@ lvimPlugin({ "NMAC427/guess-indent.nvim",
   config = function() require('guess-indent').setup { auto_cmd = false } end,
 })
 
+-- Undo tree
+lvimPlugin({
+  "jiaoshijie/undotree",
+  dependencies = { 'nvim-lua/plenary.nvim' },
+  config = function()
+    require('undotree').setup()
+  end
+})
+-- undo tree leader mapping
+lvim.builtin.which_key.mappings["u"] = {
+  function() require('undotree').toggle() end,
+  "Toggle UndoTree",
+}
+
