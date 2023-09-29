@@ -42,7 +42,7 @@ lvimPlugin({ "nvim-focus/focus.nvim",
 })
 
 -- disable Focus.nvim for specific file / buffer types
-local ignore_filetypes = { 'neo-tree', "NvimTree" }
+local ignore_filetypes = { 'neo-tree', "NvimTree", "fugitiveblame", "undotree" }
 local ignore_buftypes = {
   'nofile', 'prompt', 'popup', "toggleterm", "TelescopePrompt", "Trouble"
 }
@@ -108,7 +108,7 @@ lvimPlugin({ "folke/zen-mode.nvim",
     require("zen-mode").setup({
       plugins = {
         gitsigns = { enabled = true },
-        tmux = { enabled = true },
+        tmux = { enabled = (not vim.g.neovide) },
       },
       on_open = function(win)
         vim.g.neovide_scale_factor_old = vim.g.neovide_scale_factor
