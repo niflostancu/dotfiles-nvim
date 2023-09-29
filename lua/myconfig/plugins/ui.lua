@@ -179,3 +179,9 @@ lvimPlugin({ "folke/noice.nvim",
   }
 })
 
+-- Improve vim.ui.* interface
+lvimPlugin({
+  'stevearc/dressing.nvim',
+  opts = {},
+})
+

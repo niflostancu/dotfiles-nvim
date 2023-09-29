@@ -1,8 +1,9 @@
 --[[
-  Version Control System (e.g., git / hg) integration plugins.
+  Version Control System (git) integration plugins.
 ]]
 
--- Neogit - Magit clone for Nvim
+-- Neogit - Magit clone for Nvim (disabled)
+if (false) then
 lvimPlugin({
   "NeogitOrg/neogit",
   config = function()
@@ -19,7 +20,6 @@ lvimPlugin({
     "sindrets/diffview.nvim",
   },
 })
-
 lvim.builtin.which_key.mappings["g"]["s"] = {
   function() require('neogit').open() end,
   "[Neogit] Open"
@@ -32,6 +32,7 @@ lvim.builtin.which_key.mappings["g"]["l"] = {
   function() require('neogit').open({ "log", kind = "split" }) end,
   "[Neogit] Logs (split)"
 }
+end
 
 -- Whole-tab diff view
 lvimPlugin {
@@ -64,4 +65,71 @@ lvimPlugin({
     })
   end
 })
+
+-- GitHub review tools
+lvimPlugin({
+  'ldelossa/gh.nvim',
+  config = function()
+    require('litee.gh').setup({
+      git_buffer_completion = true,
+      keymaps = {
+        open = "<CR>", goto_web = "gx",
+        expand = "zo", collapse = "zc",
+        goto_issue = "gd", details = "d",
+        submit_comment = "<C-s>", actions = "<C-a>",
+        resolve_thread = "<C-r>"
+      }
+    })
+  end,
+  dependencies = { 'ldelossa/litee.nvim' },
+})
+lvimPlugin({
+  'ldelossa/litee.nvim',
+  config = function()
+    require('litee.lib').setup({icon_set = "nerd"})
+  end
+})
+
+lvim.builtin.which_key.mappings["g"]["h"] = {
+  name = "+Github",
+  c = {
+    name = "+Commits",
+    c = { "<cmd>GHCloseCommit<cr>", "Close" },
+    e = { "<cmd>GHExpandCommit<cr>", "Expand" },
+    o = { "<cmd>GHOpenToCommit<cr>", "Open To" },
+    p = { "<cmd>GHPopOutCommit<cr>", "Pop Out" },
+    z = { "<cmd>GHCollapseCommit<cr>", "Collapse" },
+  },
+  i = {
+    name = "+Issues",
+    p = { "<cmd>GHPreviewIssue<cr>", "Preview" },
+  },
+  l = { "<cmd>LTPanel<cr>", "Toggle Panel" },
+  r = {
+    name = "+Review",
+    b = { "<cmd>GHStartReview<cr>", "Begin" },
+    c = { "<cmd>GHCloseReview<cr>", "Close" },
+    d = { "<cmd>GHDeleteReview<cr>", "Delete" },
+    e = { "<cmd>GHExpandReview<cr>", "Expand" },
+    s = { "<cmd>GHSubmitReview<cr>", "Submit" },
+    z = { "<cmd>GHCollapseReview<cr>", "Collapse" },
+  },
+  p = {
+    name = "+Pull Request",
+    c = { "<cmd>GHClosePR<cr>", "Close" },
+    d = { "<cmd>GHPRDetails<cr>", "Details" },
+    e = { "<cmd>GHExpandPR<cr>", "Expand" },
+    o = { "<cmd>GHOpenPR<cr>", "Open" },
+    p = { "<cmd>GHPopOutPR<cr>", "PopOut" },
+    r = { "<cmd>GHRefreshPR<cr>", "Refresh" },
+    t = { "<cmd>GHOpenToPR<cr>", "Open To" },
+    z = { "<cmd>GHCollapsePR<cr>", "Collapse" },
+  },
+  t = {
+    name = "+Threads",
+    c = { "<cmd>GHCreateThread<cr>", "Create" },
+    n = { "<cmd>GHNextThread<cr>", "Next" },
+    t = { "<cmd>GHToggleThread<cr>", "Toggle" },
+  },
+}
 
