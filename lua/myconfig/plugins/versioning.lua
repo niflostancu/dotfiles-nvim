@@ -2,6 +2,13 @@
   Version Control System (git) integration plugins.
 ]]
 
+-- reset LVim's git bindings
+lvim.builtin.which_key.mappings["g"] = {
+  name = "Git",
+  d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Git Diff", },
+  L = { "<cmd>lua require 'lvim.core.terminal'.lazygit_toggle()<cr>", "Lazygit" },
+}
+
 -- Neogit - Magit clone for Nvim (disabled)
 if (false) then
 lvimPlugin({
@@ -22,17 +29,13 @@ lvimPlugin({
 })
 lvim.builtin.which_key.mappings["g"]["s"] = {
   function() require('neogit').open() end,
-  "[Neogit] Open"
-}
+  "[Neogit] Open" }
 lvim.builtin.which_key.mappings["g"]["c"] = {
   function() require('neogit').open({ "commit" }) end,
-  "[Neogit] Commit"
-}
+  "[Neogit] Commit" }
 lvim.builtin.which_key.mappings["g"]["l"] = {
   function() require('neogit').open({ "log", kind = "split" }) end,
-  "[Neogit] Logs (split)"
-}
-end
+  "[Neogit] Logs (split)" } end
 
 -- Whole-tab diff view
 lvimPlugin {
@@ -50,8 +53,15 @@ lvimPlugin({
     "G", "Git", "Gdiffsplit", "Gread", "Gwrite", "Ggrep", "GMove", "GDelete",
     "GBrowse", "GRemove", "GRename", "Glgrep", "Gedit"
   },
-  ft = { "fugitive" }
+  ft = { "fugitive" },
 })
+
+lvim.builtin.which_key.mappings["g"]["s"] = { "<cmd>G<cr>", "[Fugitive] Status Open" }
+lvim.builtin.which_key.mappings["g"]["c"] = { "<cmd>G commit<cr>", "[Fugitive] Commit" }
+lvim.builtin.which_key.mappings["g"]["l"] = { "<cmd>G log<cr>", "[Fugitive] Logs" }
+lvim.builtin.which_key.mappings["g"]["t"] = {
+  "<cmd>G --paginate stash list '--pretty=format:%h %as %<(10)%gd %<(76,trunc)%s'<cr>",
+  "[Fugitive] Stash" }
 
 --- Git conflict marker highlighting + solve bindings
 lvimPlugin({
