@@ -81,17 +81,56 @@ lvim.builtin.bufferline.active = false
 lvimPlugin({
   "nanozuki/tabby.nvim",
   config = function()
-    local tabhl = { bg = "#98c379", fg = "#000000" }
-    require('tabby.tabline').use_preset('tab_only', {
-      theme = {
-        fill = 'TabLineFill',
-        head = 'TabLine',
-        current_tab = tabhl,
-        tab = 'TabLine',
-        win = 'TabLine',
-        tail = 'TabLine',
+    local function tab_modified(tab, mod, not_mod)
+      local wins = require("tabby.module.api").get_tab_wins(tab)
+      for _, x in pairs(wins) do
+        if vim.bo[vim.api.nvim_win_get_buf(x)].modified then
+          return mod end
+      end return not_mod
+    end
+    local theme = {
+      fill = 'TabLineFill',
+      head = 'TabLineSel',
+      current_tab = { bg = "#98c379", fg = "#000000" },
+      inactive_tab = 'TabLine',
+      tab = 'TabLine',
+      win = 'TabLine',
+      tail = 'TabLine',
+    }
+    require('tabby.tabline').set(function(line)
+      return {
+        {
+          { '  ', hl = theme.head },
+          line.sep('', theme.head, theme.fill),
+        },
+        line.tabs().foreach(function(tab)
+          local hl = tab.is_current() and theme.current_tab or theme.inactive_tab
+          local num_hl = tab.is_current() and theme.fill or theme.current_tab
+          local sep_l = line.sep('', hl, theme.fill)
+          local sep_r = line.sep('', hl, theme.fill)
+          if ((line.api.get_current_tab() - tab.number()) > 0) then sep_l = '' end
+          if ((tab.number() - line.api.get_current_tab()) > 0) then sep_r = '' end
+          return {
+            sep_l, line.sep(' ', hl, hl),
+            -- nf-md-numeric_<X>_circle for tab ID
+            line.sep(vim.fn.nr2char(0xf0ca0 - 2 + 2 * tab.number()), num_hl, hl),
+            line.sep(' ', hl, hl),
+            tab.name(), tab_modified(tab.id, "󰐗 ", " "),
+            sep_r, hl = hl, margin = '',
+          }
+        end),
+        line.spacer(),
+        hl = theme.fill,
       }
-    })
+    end, {
+        tab_name = {
+          name_fallback = function(tabid)
+            local twd = vim.fn.getcwd(0, tabid)
+            return vim.fn.fnamemodify(twd, ":t")
+          end
+        },
+      }
+    )
   end,
   dependencies = {
     {'nvim-lualine/lualine.nvim', lazy = true},
