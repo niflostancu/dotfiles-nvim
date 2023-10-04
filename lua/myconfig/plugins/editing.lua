@@ -11,6 +11,9 @@ lvim.builtin.bigfile.config = {
   },
 }
 
+-- Annoying autopairs...
+-- lvim.builtin.autopairs.active = false
+
 -- `s` motions (similar to Sneak / EasyMotion / Lightspeed)
 lvimPlugin({ "ggandor/leap.nvim",
   config = function()
