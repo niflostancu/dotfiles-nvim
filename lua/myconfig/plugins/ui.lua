@@ -125,7 +125,10 @@ lvimPlugin({
     end, {
         tab_name = {
           name_fallback = function(tabid)
-            local twd = vim.fn.getcwd(0, tabid)
+            local ok, twd = pcall(vim.fn.getcwd, 0, tabid)
+            if not ok then
+              return "[...]"
+            end
             return vim.fn.fnamemodify(twd, ":t")
           end
         },
