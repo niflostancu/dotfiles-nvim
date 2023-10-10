@@ -43,6 +43,7 @@ local nvim_tree_attach = function(bufnr)
   local function nvimtree_cd()
     -- TODO: override project dir (per tab) on manual nvim-tree CD
     local node = api.tree.get_node_under_cursor()
+    if not node then return end
     vim.cmd('tcd ' .. node.absolute_path)
     api.tree.change_root_to_node(node)
   end
