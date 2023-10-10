@@ -12,7 +12,7 @@ if vim.g.neovide then
   vim.g.mycfg_float_winblend = 30
   vim.o.winblend = 20
 
-  vim.o.guifont = "Source_Code_Pro:h14:#e-antialias:#h-full"
+  vim.o.guifont = "SauceCodePro_Nerd_Font:h14:#e-antialias:#h-full"
 
   vim.g.neovide_refresh_rate = 60
   vim.g.neovide_refresh_rate_idle = 5
