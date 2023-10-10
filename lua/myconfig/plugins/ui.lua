@@ -42,7 +42,12 @@ lvimPlugin({ "nvim-focus/focus.nvim",
 })
 
 -- disable Focus.nvim for specific file / buffer types
-local ignore_filetypes = { 'neo-tree', "NvimTree", "fugitiveblame", "undotree" }
+local ignore_filetypes = {
+  'neo-tree', "NvimTree", "SidebarNvim", "Trouble", "terminal", "OverseerList",
+  "fugitiveblame", "undotree", "dap-repl", "dapui_console", "dapui_watches",
+  "dapui_stacks", "dapui_breakpoints", "dapui_scopes",
+  "NeogitStatus", "NeogitLogView", "NeogitPopup", "NeogitCommitMessage",
+}
 local ignore_buftypes = {
   'nofile', 'prompt', 'popup', "toggleterm", "TelescopePrompt", "Trouble"
 }
