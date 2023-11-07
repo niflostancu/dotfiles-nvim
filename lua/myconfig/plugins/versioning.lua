@@ -46,6 +46,11 @@ lvimPlugin {
   end
 }
 
+-- Visual block diff plugin
+lvimPlugin({
+  "AndrewRadev/linediff.vim"
+})
+
 -- The classic Fugitive plugin
 lvimPlugin({
   "tpope/vim-fugitive",
