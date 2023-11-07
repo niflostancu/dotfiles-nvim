@@ -94,14 +94,18 @@ lvimPlugin({
       end return not_mod
     end
     local theme = {
-      fill = 'TabLineFill',
-      head = 'TabLineSel',
+      fill = 'TabLineFill', head = 'TabLineSel',
       current_tab = { bg = "#98c379", fg = "#000000" },
-      inactive_tab = 'TabLine',
-      tab = 'TabLine',
-      win = 'TabLine',
-      tail = 'TabLine',
+      tab = 'TabLine', inactive_tab = 'TabLine',
+      win = 'TabLine', tail = 'TabLine',
     }
+    local get_tab_name = function(tab)
+      local name = tab.name()
+      if not (name == nil or name == '') then return name end
+      local ok, twd = pcall(vim.fn.getcwd, 0, tab.id)
+      if not ok then return "<???>" end
+      return vim.fn.fnamemodify(twd, ":t")
+    end
     require('tabby.tabline').set(function(line)
       return {
         {
@@ -120,7 +124,7 @@ lvimPlugin({
             -- nf-md-numeric_<X>_circle for tab ID
             line.sep(vim.fn.nr2char(0xf0ca0 - 2 + 2 * tab.number()), num_hl, hl),
             line.sep(' ', hl, hl),
-            tab.name(), tab_modified(tab.id, "󰐗 ", " "),
+            get_tab_name(tab), tab_modified(tab.id, "󰐗 ", " "),
             sep_r, hl = hl, margin = '',
           }
         end),
@@ -129,13 +133,7 @@ lvimPlugin({
       }
     end, {
         tab_name = {
-          name_fallback = function(tabid)
-            local ok, twd = pcall(vim.fn.getcwd, 0, tabid)
-            if not ok then
-              return "[...]"
-            end
-            return vim.fn.fnamemodify(twd, ":t")
-          end
+          name_fallback = function() return '' end
         },
       }
     )
