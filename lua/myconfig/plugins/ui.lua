@@ -31,7 +31,7 @@ lvim.builtin.indentlines.options = {
 
 --- auto-resize focused splits for nvim based on golden ratio
 lvimPlugin({ "nvim-focus/focus.nvim",
-  version = false,
+  branch = 'master',
   config = function()
     require("focus").setup({
       ui = {
@@ -67,9 +67,9 @@ vim.api.nvim_create_autocmd('FileType', {
   group = augroup,
   callback = function(_)
     if vim.tbl_contains(ignore_filetypes, vim.bo.filetype) then
-      vim.w.focus_disable = true
+      vim.b.focus_disable = true
     else
-      vim.w.focus_disable = false
+      vim.b.focus_disable = false
     end
   end,
   desc = 'Disable focus autoresize for FileType',
