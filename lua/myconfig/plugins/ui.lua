@@ -156,11 +156,15 @@ lvimPlugin({ "folke/zen-mode.nvim",
         tmux = { enabled = (not vim.g.neovide) },
       },
       on_open = function(win)
-        vim.g.neovide_scale_factor_old = vim.g.neovide_scale_factor
-        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + vim.g.myconfig_zen_add_scale
+        if vim.g.neovide then
+          vim.g.neovide_scale_factor_old = vim.g.neovide_scale_factor
+          vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + vim.g.myconfig_zen_add_scale
+        end
       end,
       on_close = function()
-        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor_old
+        if vim.g.neovide then
+          vim.g.neovide_scale_factor = vim.g.neovide_scale_factor_old
+        end
       end,
     })
   end
