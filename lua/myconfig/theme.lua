@@ -55,9 +55,10 @@ lvim.builtin.lualine.sections.lualine_c = {
 lvim.builtin.lualine.sections.lualine_x = {
   { function()
       local noice = require("noice")
-      if noice.api.status.mode.has then
-        return noice.api.status.mode.get
+      if noice.api.status.mode.has() then
+        return noice.api.status.mode.get()
       end
+      return ""
     end, color = { fg = "7edd44" } },
   components.diff,
   components.python_env,
