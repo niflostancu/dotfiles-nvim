@@ -17,13 +17,16 @@ local nvimtree_overrides = {
   renderer = {icons = {git_placement = "after"}},
   view = {side = "left", signcolumn = 'no' },
   -- settings for tab-based workflow / Project.nvim integration
-  actions = {change_dir = {enable = false}},
+  actions = {
+    change_dir = {enable = false},
+    remove_file = { close_window = false },
+  },
   sync_root_with_cwd = true,
   reload_on_bufenter = true,
   respect_buf_cwd = true,
   update_focused_file = {
     enable = true,
-    update_root = true,
+    update_root = false,
     ignore_list = { "", "fzf", "help", "qf", "lspinfo", "undotree" },
   },
 }
@@ -43,7 +46,12 @@ local nvim_tree_attach = function(bufnr)
   local function nvimtree_cd()
     -- TODO: override project dir (per tab) on manual nvim-tree CD
     local node = api.tree.get_node_under_cursor()
-    if not node then return end
+    if not node or node.name == ".." then
+      -- C should re-apply CWD as :tcd
+      local cwd = require("nvim-tree.core").get_cwd()
+      vim.cmd('tcd ' .. cwd)
+      return
+    end
     vim.cmd('tcd ' .. node.absolute_path)
     api.tree.change_root_to_node(node)
   end
