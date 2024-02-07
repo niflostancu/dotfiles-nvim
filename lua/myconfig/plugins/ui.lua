@@ -169,7 +169,7 @@ lvimPlugin({ "folke/zen-mode.nvim",
     })
   end
 })
-vim.g.myconfig_zen_add_scale = 0.2
+vim.g.myconfig_zen_add_scale = 0
 lvim.keys.normal_mode["<S-z>"] = "<Cmd>ZenMode<CR>"
 
 -- Noice.nvim: messages & cmdline replacement!
