@@ -1,3 +1,9 @@
+-- additional Runtime Paths (add myconfigpath since Lazy resets it!)
+local additional_rtp = {}
+if _G["myconfigpath"] ~= nil then
+  table.insert(additional_rtp, _G["myconfigpath"])
+end
+
 require("lazy").setup({
   {
     "AstroNvim/AstroNvim",
@@ -19,6 +25,7 @@ require("lazy").setup({
   ui = { backdrop = 100 },
   performance = {
     rtp = {
+      paths = additional_rtp,
       -- disable some rtp plugins, add more to your liking
       disabled_plugins = {
         "gzip",
