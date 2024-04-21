@@ -1,14 +1,14 @@
--- Include user configs
+-- Custom ("myconfig") LunarVim configuration loader
 
-_G["myconfigpath"] = "/home/niflo/Documents/Personal/Configs/lunarvim-config/"
+-- Path to personalized config repository
+_G["myconfigpath"] = "{MYCONFIGPATH}"
+-- Load custom lvim config from myconfigpath:
+vim.opt.rtp:prepend(_G["myconfigpath"])
+require('myconfig')
 
--- Per-machine personalization here, e.g.:
+-- E.g., per-machine overrides here, e.g.:
 
 -- lvim.lsp.installer.setup.automatic_installation.exclude = {
 -- 	"clangd", "intelephense"
 -- }
-
--- Load my config
-vim.opt.rtp:prepend(_G["myconfigpath"])
-require('myconfig')
 
