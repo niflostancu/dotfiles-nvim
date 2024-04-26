@@ -1,9 +1,5 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
--- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
---       as this provides autocomplete and documentation while editing
 
 ---@type LazySpec
 return {
@@ -12,7 +8,7 @@ return {
   opts = {
     -- Configure core features of AstroNvim
     features = {
-      large_buf = { size = 1024 * 500, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
+      large_buf = { size = 1024 * 500, lines = 10000 },
       autopairs = true, -- enable autopairs at start
       cmp = true, -- enable completion at start
       diagnostics_mode = 3, -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
@@ -26,17 +22,52 @@ return {
     },
     -- vim options can be configured here
     options = {
-      opt = { -- vim.opt.<key>
-        relativenumber = true, -- sets vim.opt.relativenumber
-        number = true, -- sets vim.opt.number
-        spell = false, -- sets vim.opt.spell
-        signcolumn = "auto", -- sets vim.opt.signcolumn to auto
-        wrap = false, -- sets vim.opt.wrap
+      opt = {
+        -- Standard vim options
+        fileformats = "unix,dos,mac",
+        cmdheight = 1,
+        ruler = false,
+        visualbell = true,
+        virtualedit = "block",
+        -- Line numbering options
+        number = true,          -- print line number in front of each line
+        relativenumber = true,  -- show line numbers relative to current line
+        -- Options for text editing 
+        textwidth = 80,         -- Text width maximum chars before wrapping
+        expandtab = false,      -- Don't expand tabs to spaces by default.
+        tabstop = 4,            -- The number of spaces a tab is
+        shiftwidth = 4,         -- Number of spaces to use in auto(indent)
+        softtabstop = 0,        -- Don't use softtabstop
+        smarttab = true,        -- Tab insert blanks according to 'shiftwidth'
+        autoindent = true,      -- Use same indenting on new lines
+        smartindent = true,     -- Smart autoindenting on new lines
+        shiftround = true,      -- Round indent to multiple of 'shiftwidth'
+        list = false,           -- Keep whitespace characters hidden
+        -- listchars:append("eol:↴")
+
+        -- Editor Behavior options
+        wrap = false,                 -- No wrap by default
+        linebreak = true,             -- Break long lines at 'breakat'
+        breakat = " \t;:,!?",         -- Long lines break chars
+        switchbuf = "useopen,usetab", -- Switch to open buffer's window / tab
+        diffopt="filler,iwhite",      -- Diff mode: show fillers, ignore white
+        spell = false,                -- disable spell checking
+        hlsearch = true,              -- highlight all search terms
+        signcolumn = "yes",           -- always show the sign column
+        formatoptions = {
+          ["1"] = true,
+          ["2"] = true, -- Use indent from 2nd line of a paragraph
+          q = true,  -- continue comments with gq"
+          c = true,  -- Auto-wrap comments using textwidth
+          r = true,  -- Continue comments when pressing Enter
+          n = true,  -- Recognize numbered lists
+          t = false, -- autowrap lines using text width value
+          j = true,  -- remove a comment leader when joining lines.
+          l = true,  -- Long lines are not broken in insert mode
+        },
       },
       g = { -- vim.g.<key>
-        -- configure global vim variables (vim.g)
-        -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
-        -- This can be found in the `lua/lazy_setup.lua` file
+
       },
     },
     -- Mappings can be configured through AstroCore as well.
@@ -45,11 +76,6 @@ return {
       -- first key is the mode
       n = {
         -- second key is the lefthand side of the map
-
-        -- navigate buffer tabs with `H` and `L`
-        L = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
-        H = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
-
         -- mappings seen under group name "Buffer"
         ["<Leader>bD"] = {
           function()
@@ -59,11 +85,24 @@ return {
           end,
           desc = "Pick to close",
         },
+
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         ["<Leader>b"] = { desc = "Buffers" },
+
+        -- Yank all lines to clipboard
+        ["<Leader>y"] = { '<Cmd>%y+<CR>', desc = "Yank all to +clipboard" },
+
+        ["<Leader>n"] = { '<Cmd>:nohlsearch<CR>', desc = "Un-highlight search" },
+
         -- quick save
-        -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+        ["<C-s>"] = { "<Cmd>w<CR>", desc = "Save File" },
+      },
+      v = {
+        ["<C-s>"] = { "<Cmd>w<CR>", desc = "Save File" },
+      },
+      i = {
+        ["<C-s>"] = { "<Cmd>w<CR>", desc = "Save File" },
       },
       t = {
         -- setting a mapping to false will disable it
