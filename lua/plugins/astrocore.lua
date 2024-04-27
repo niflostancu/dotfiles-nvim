@@ -90,9 +90,6 @@ return {
         -- this is useful for naming menus
         ["<Leader>b"] = { desc = "Buffers" },
 
-        -- Yank all lines to clipboard
-        ["<Leader>y"] = { '<Cmd>%y+<CR>', desc = "Yank all to +clipboard" },
-
         ["<Leader>n"] = { '<Cmd>:nohlsearch<CR>', desc = "Un-highlight search" },
 
         -- quick save
