@@ -2,6 +2,9 @@
 
 return {
   { "aserowy/tmux.nvim",
+    -- actually, AstroNVim bundles mrjones2014/smart-splits.nvim, so disabled
+    -- for now
+    enabled = false,
     opts = {
       copy_sync = {
         -- using separate plugin for terminal OSC52 integration
