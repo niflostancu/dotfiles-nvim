@@ -109,5 +109,9 @@ return {
         -- ["<esc>"] = false,
       },
     },
+    on_keys = {
+      -- re-enable persistent hlsearch
+      auto_hlsearch = false,
+    },
   },
 }

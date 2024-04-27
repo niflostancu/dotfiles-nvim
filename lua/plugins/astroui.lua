@@ -11,6 +11,8 @@ return {
       highlights = {
         init = {
           TabLineSel = { bg="#61afef", fg="#000000" },
+          -- I want hlsearch to be much more visible
+          Search = { fg="#282c34", bg="#e2be7d" },
         },
       },
       -- add new user interface icons
