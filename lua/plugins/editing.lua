@@ -1,4 +1,9 @@
+--[[
+  Editing support plugins.
+]]
+
 return {
+  -- Dynamically resize focused windows (golden radio-like)
   { "nvim-focus/focus.nvim",
   	opts = {
       ui = {
@@ -6,6 +11,7 @@ return {
       }
     }
   },
+  -- Astrocore customizations for focus.nvim exclusions
   {
     "AstroNvim/astrocore",
     opts = function(_, opts)
@@ -41,8 +47,33 @@ return {
           end,
         },
       };
-      return opts
+      opts.mappings.n["Z"] = { "<Cmd>ZenMode<CR>", desc = "Zen Mode" }
     end
   },
+  {
+    "folke/zen-mode.nvim",
+    cmd = "ZenMode",
+    opts = {
+      window = {
+        backdrop = 1,
+        width = function() return math.min(120, vim.o.columns * 0.75) end,
+        height = 0.9,
+        options = {
+          number = false,
+          relativenumber = false,
+          foldcolumn = "0",
+          list = false,
+          showbreak = "NONE",
+          signcolumn = "no",
+        },
+      },
+      plugins = {
+        options = {
+          cmdheight = 1,
+          laststatus = 0,
+        },
+      },
+    },
+  }
 }
 
