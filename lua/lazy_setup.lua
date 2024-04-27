@@ -1,20 +1,18 @@
 -- additional Runtime Paths (add myconfigpath since Lazy resets it!)
 local additional_rtp = {}
-if _G["myconfigpath"] ~= nil then
-  table.insert(additional_rtp, _G["myconfigpath"])
-end
+if _G["myconfigpath"] ~= nil then table.insert(additional_rtp, _G["myconfigpath"]) end
 
 require("lazy").setup({
   {
     "AstroNvim/AstroNvim",
-    version = "^4", -- Remove version tracking to elect for nighly AstroNvim
+    version = "^4",
     import = "astronvim.plugins",
-    opts = { -- AstroNvim options must be set here with the `import` key
-      mapleader = " ", -- This ensures the leader key must be configured before Lazy is set up
-      maplocalleader = ",", -- This ensures the localleader key must be configured before Lazy is set up
-      icons_enabled = true, -- Set to false to disable icons (if no Nerd Font is available)
-      pin_plugins = nil, -- Default will pin plugins when tracking `version` of AstroNvim, set to true/false to override
-      update_notifications = true, -- Enable/disable notification about running `:Lazy update` twice to update pinned plugins
+    opts = {
+      mapleader = " ",
+      maplocalleader = ",",
+      icons_enabled = true,
+      pin_plugins = nil,
+      update_notifications = true,
     },
   },
   { import = "community" },
