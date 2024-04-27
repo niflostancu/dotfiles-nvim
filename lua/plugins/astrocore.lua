@@ -95,11 +95,15 @@ return {
         -- quick save
         ["<C-s>"] = { "<Cmd>w<CR>", desc = "Save File" },
       },
-      v = {
-        ["<C-s>"] = { "<Cmd>w<CR>", desc = "Save File" },
-      },
       i = {
         ["<C-s>"] = { "<Cmd>w<CR>", desc = "Save File" },
+      },
+      v = {
+        ["<C-s>"] = { "<Cmd>w<CR>", desc = "Save File" },
+
+        -- Keep visual mode on indenting with '<', '>'
+        ['<'] = { "<gv", desc = "Dec. Indent", noremap = true },
+        ['>'] = { ">gv", desc = "Inc. Indent", noremap = true },
       },
       t = {
         -- setting a mapping to false will disable it
