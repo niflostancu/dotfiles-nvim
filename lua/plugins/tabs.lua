@@ -1,4 +1,6 @@
--- Tab workflow plugins & customizations
+--[[
+  Tab workflow plugins & customizations
+]]
 
 return {
   -- disable heirline's tabline
@@ -23,7 +25,7 @@ return {
       local get_tab_name = function(tab)
         local name = tab.name()
         if not (name == nil or name == '') then return name end
-        local ok, twd = pcall(vim.fn.getcwd, 0, tab.id)
+        local ok, twd = pcall(vim.fn.getcwd, -1, tab.number())
         if not ok then return "<???>" end
         return vim.fn.fnamemodify(twd, ":t")
       end
