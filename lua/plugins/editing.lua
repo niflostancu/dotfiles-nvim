@@ -11,6 +11,19 @@ return {
       }
     }
   },
+  -- Highlight current indentation column
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "User AstroFile",
+    opts = {
+      indent = { char = "│" },
+      scope = { enabled = true },
+      whitespace = { remove_blankline_trail = true },
+      exclude = {
+        filetypes = { "help", "alpha", "dashboard", "Trouble", "lazy", "neo-tree" },
+      },
+    },
+  },
   -- Astrocore customizations for focus.nvim exclusions
   {
     "AstroNvim/astrocore",
