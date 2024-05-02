@@ -30,6 +30,14 @@ return {
     }
   },
   {
+    "tpope/vim-fugitive",
+    cmd = {
+      "G", "Git", "Gdiffsplit", "Gread", "Gwrite", "Ggrep", "GMove", "GDelete",
+      "GBrowse", "GRemove", "GRename", "Glgrep", "Gedit"
+    },
+    ft = { "fugitive" },
+  },
+  {
     "AstroNvim/astrocore",
     opts = { mappings = { n = {
       ["<Leader>gs"] = { "<Cmd>Neogit kind=split<CR>", desc = "Neogit Status" },
