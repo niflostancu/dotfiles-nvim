@@ -16,16 +16,25 @@ return {
       resession_util.get_session_dir = function(dirname)
         dirname = dirname or require("resession.config").dir
         if dirname and dirname:find("^/") then
-          print("sess: absolute: ", dirname)
+          -- print("sess: absolute: ", dirname)
           return dirname
         end
         local files = require("resession.files")
         dirname = files.get_stdpath_filename("data", dirname)
-          print("sess: stdpath: ", dirname)
+        -- print("sess: stdpath: ", dirname)
         return dirname
       end
       require "resession".setup(opts)
     end,
+    opts = {
+      autosave = {
+        enabled = true,
+        -- How often to save (in seconds)
+        interval = 60,
+        -- Notify when autosaved
+        notify = false,
+      },
+    },
     dependencies = {
       {
         "AstroNvim/astrocore",
