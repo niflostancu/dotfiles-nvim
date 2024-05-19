@@ -34,6 +34,7 @@ return {
         relativenumber = true,  -- show line numbers relative to current line
         -- Options for text editing 
         textwidth = 80,         -- Text width maximum chars before wrapping
+        colorcolumn = "+1",       -- Highlight column margin
         expandtab = false,      -- Don't expand tabs to spaces by default.
         tabstop = 4,            -- The number of spaces a tab is
         shiftwidth = 4,         -- Number of spaces to use in auto(indent)
