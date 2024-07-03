@@ -10,6 +10,8 @@ return {
     "NeogitOrg/neogit",
     opts = {
       kind = "split",
+      -- disable filewatcher (buggy behavior)
+      filewatcher = { enabled = false },
       commit_select_view = {
         kind = "auto",
       },
