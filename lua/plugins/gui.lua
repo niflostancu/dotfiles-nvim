@@ -31,6 +31,8 @@ return {
         go.neovide_refresh_rate = 60
         go.neovide_refresh_rate_idle = 5
         go.neovide_scroll_animation_length = 0.15
+        go.neovide_text_gamma = 0.8
+        go.neovide_text_contrast = 0.2
 
         go.neovide_cursor_animation_length = 0.05
         go.neovide_cursor_trail_size = 0.6
