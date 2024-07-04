@@ -29,6 +29,37 @@ return {
     dependencies = {
       { "nvim-telescope/telescope.nvim" },
       { "sindrets/diffview.nvim", dependencies = {'nvim-lua/plenary.nvim'} },
+      {
+        "AstroNvim/astrocore", dependencies = {"lewis6991/gitsigns.nvim"},
+        opts = function(_, opts)
+          opts.mappings.n["<Leader>gs"] = { "<Cmd>Neogit kind=split<CR>", desc = "Neogit Status" }
+        end
+      },
+      {
+        "lewis6991/gitsigns.nvim",
+        opts = function()
+          local get_icon = require("astroui").get_icon
+          return {
+            -- DO NOT want any gitsigns-related `<Leader>g` mappings
+            on_attach = function(bufnr)
+              local astrocore = require "astrocore"
+              local prefix, maps = "<Leader>g", astrocore.empty_map_table()
+              for _, mode in ipairs { "n", "v" } do
+                maps[mode][prefix] = { desc = get_icon("Git", 1, true) .. "Git" }
+              end
+
+              maps.n["]g"] = { function() require("gitsigns").next_hunk() end, desc = "Next Git hunk" }
+              maps.n["[g"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous Git hunk" }
+              for _, mode in ipairs { "o", "x" } do
+                maps[mode]["ig"] = { ":<C-U>Gitsigns select_hunk<CR>", desc = "inside Git hunk" }
+              end
+
+              astrocore.set_mappings(maps, { buffer = bufnr })
+            end,
+            worktrees = require("astrocore").config.git_worktrees,
+          }
+        end,
+      }
     }
   },
   {
@@ -38,11 +69,5 @@ return {
       "GBrowse", "GRemove", "GRename", "Glgrep", "Gedit"
     },
     ft = { "fugitive" },
-  },
-  {
-    "AstroNvim/astrocore",
-    opts = { mappings = { n = {
-      ["<Leader>gs"] = { "<Cmd>Neogit kind=split<CR>", desc = "Neogit Status" },
-    } } },
   },
 }
