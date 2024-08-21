@@ -68,7 +68,8 @@ return {
     "folke/which-key.nvim",
     opts = function (_, opts)
       opts.win = opts.win or {}
-      opts.win.winblend = cfg_winblend
+      opts.win.wo = opts.win.wo or {}
+      opts.win.wo.winblend = cfg_winblend
     end
   },
 }
