@@ -1,6 +1,7 @@
 return {
-  {"nblock/vim-dokuwiki",
-    setup=function()
+  {
+    "nblock/vim-dokuwiki",
+    setup = function()
       vim.filetype.add {
         extension = {
           foo = "fooscript",
@@ -40,4 +41,22 @@ return {
       },
     },
   },
+  -- Notmuch email address finder (Telescope extension)
+  {
+    "https://codeberg.org/JoshuaCrewe/telescope-notmuch.nvim.git",
+    ft = {'mail'},
+    setup = function()
+      require("telescope").load_extension("notmuch")
+    end,
+    dependencies = {"nvim-telescope/telescope.nvim"}
+  },
+  { "AstroNvim/astrocore",
+    opts = function(_, opts)
+      local maps = opts.mappings
+      maps.n["<Leader>fe"] = {
+        "<cmd>Telescope notmuch theme=cursor<CR>",
+        desc = "[Find] Notmuch Emails"
+      }
+    end
+  }
 }
