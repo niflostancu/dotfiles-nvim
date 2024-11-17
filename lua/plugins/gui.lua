@@ -50,6 +50,10 @@ return {
         mappings.n["<C-->"] = { function() change_scale_factor(1/1.1) end,
           desc = "[Neovide] Dec. Scaling" }
       end
+
+      -- utility key bindings
+      mappings.n["<Leader>uX"] = { function() require('myconfig.utils').close_floating_wins() end,
+        desc = "Close Floating Windows" }
     end,
   },
   {
