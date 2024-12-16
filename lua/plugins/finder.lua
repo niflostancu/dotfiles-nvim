@@ -45,6 +45,25 @@ return {
       }
     }
   },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = function(_, opts)
+      opts.window = vim.tbl_deep_extend("force", opts.window or {}, {
+        auto_expand_width = false,
+        mappings = {
+          ["/"] = "noop",  -- disable the default mapping
+        },
+      })
+    end,
+    config = function(_, opts)
+      require("neo-tree").setup(opts)
+      -- Add a custom keymap for normal mode search in Neo-tree buffer
+      -- https://github.com/nvim-neo-tree/neo-tree.nvim/issues/791#issuecomment-2240768050
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "neo-tree",
+        callback = function() vim.api.nvim_buf_set_keymap(0, "n", "/", "/", { noremap = true, silent = true }) end,
+      })
+    end,
   },
   {
     "AstroNvim/astrocore",
