@@ -4,6 +4,12 @@
 
 return {
   {
+    'nvim-telescope/telescope-ui-select.nvim',
+    config = function()
+      require("telescope").load_extension("ui-select")
+    end
+  },
+  {
     "nvim-telescope/telescope.nvim",
     opts = {
       theme = "dropdown",
@@ -31,6 +37,14 @@ return {
         borderchars = {" ", " ", " ", " ", " ", " ", " ", " "}
       },
     },
+    extensions = {
+      ["ui-select"] = {
+        require("telescope.themes").get_dropdown {
+          -- even more opts
+        }
+      }
+    }
+  },
   },
   {
     "AstroNvim/astrocore",
@@ -43,7 +57,8 @@ return {
         function() require('telescope.builtin').buffers({
           only_cwd = true,
           sort_mru = true,
-          -- sort_lastused = true,
+          show_all_buffers = false,
+          sort_lastused = true,
           ignore_current_buffer = true,
           previewer = false,
         }) end,
