@@ -1,9 +1,13 @@
 -- Session management plugins & customizations
 
 local dirsess_opts = function()
-  -- return current working directory
+  -- return currently loaded session dir if any, otherwise the working directory
   local Path = require("plenary.path")
   local session_dir = Path:new(vim.fn.getcwd()):absolute()
+  local session_info = require("resession").get_current_session_info()
+  if session_info and session_info["dir"] then
+    session_dir = session_info["dir"]
+  end
   return { dir = session_dir }
 end
 
@@ -24,6 +28,8 @@ return {
         -- print("sess: stdpath: ", dirname)
         return dirname
       end
+      -- remove from opts
+      opts.extensions["astrocore"] = nil
       require "resession".setup(opts)
     end,
     opts = {
@@ -41,7 +47,11 @@ return {
         opts = function(_, opts)
           local maps = opts.mappings
           maps.n["<Leader>SS"] = {
-            function() require("resession").save(".resession", dirsess_opts()) end,
+            function()
+              local diropt = dirsess_opts()
+              require("resession").save(".resession", diropt)
+              require("notify")("Session saved to " .. diropt["dir"])
+            end,
             desc = "Save dirsession",
           }
           maps.n["<Leader>SD"] =
