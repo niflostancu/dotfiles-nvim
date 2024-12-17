@@ -84,7 +84,7 @@ return {
         desc = "[Telescope] Buffers (cwd)"
       }
       maps.n[";B"] = {
-        function() require('telescope.builtin').buffers({
+        function() require('telescope').extensions.hbac.buffers({
           sort_mru = true,
           sort_lastused = true,
           previewer = false,
