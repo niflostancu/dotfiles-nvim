@@ -66,6 +66,13 @@ return {
     end,
   },
   {
+    "nvim-pack/nvim-spectre",
+    opts = {
+      open_cmd = 'vnew',
+    },
+    config = true
+  },
+  {
     "AstroNvim/astrocore",
     opts = function(_, opts)
       local maps = opts.mappings
