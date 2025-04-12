@@ -31,7 +31,7 @@ return {
             pattern = { "dokuwiki" },
             desc = "Enable wrapping on wiki files",
             callback = function()
-              vim.o.textwidth=80
+              vim.o.textwidth=0
               vim.o.wrapmargin=0
               vim.o.wrap = true
               vim.o.linebreak = true
