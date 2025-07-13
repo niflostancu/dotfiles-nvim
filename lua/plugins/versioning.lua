@@ -83,5 +83,6 @@ return {
     config = function()
       require("litee.gh").setup()
     end,
-  }
+  },
+  {'akinsho/git-conflict.nvim', version = "*", config = true}
 }
