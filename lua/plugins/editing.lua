@@ -63,6 +63,10 @@ return {
       opts.mappings.n["Z"] = { "<Cmd>ZenMode<CR>", desc = "Zen Mode" }
     end
   },
+  -- Conform formatter
+  {
+    "stevearc/conform.nvim",
+  },
   {
     "folke/zen-mode.nvim",
     cmd = "ZenMode",
