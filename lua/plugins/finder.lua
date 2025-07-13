@@ -34,7 +34,13 @@ return {
         path_display = { truncate = 3 },
         dynamic_preview_title = true,
         -- use flat border
-        borderchars = {" ", " ", " ", " ", " ", " ", " ", " "}
+        borderchars = {" ", " ", " ", " ", " ", " ", " ", " "},
+        -- ripgrep args
+        vimgrep_arguments = {
+          "rg", "--color=never", "--no-require-git",
+          "--no-heading", "--with-filename",
+          "--line-number", "--column", "--smart-case"
+        }
       },
     },
     extensions = {
