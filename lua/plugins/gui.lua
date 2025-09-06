@@ -76,4 +76,26 @@ return {
       opts.win.wo.winblend = cfg_winblend
     end
   },
+  {
+    "goolord/alpha-nvim",
+    opts = function(_, opts)
+      -- ASCII Art using https://patorjk.com/software/taag/
+      -- Font name: Mono 9
+      opts.section.header.val = {
+        [[                                   ]],
+        [[ ▄▄   ▄   ▀      ▄▀▀  ▀▀█          ]],
+        [[ █▀▄  █ ▄▄▄    ▄▄█▄▄    █     ▄▄▄  ]],
+        [[ █ █▄ █   █      █      █    █▀ ▀█ ]],
+        [[ █  █ █   █      █      █    █   █ ]],
+        [[ █   ██ ▄▄█▄▄    █      ▀▄▄  ▀█▄█▀ ]],
+        [[                                   ]],
+        [[       ▄    ▄   ▀                  ]],
+        [[       ▀▄  ▄▀ ▄▄▄    ▄▄▄▄▄         ]],
+        [[        █  █    █    █ █ █         ]],
+        [[        ▀▄▄▀    █    █ █ █         ]],
+        [[         ██   ▄▄█▄▄  █ █ █         ]],
+
+      }
+    end,
+  }
 }
