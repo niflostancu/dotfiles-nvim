@@ -1,4 +1,8 @@
 return {
+  { import = "astrocommunity.pack.html-css" },
+  { import = "astrocommunity.pack.php" },
+  { import = "astrocommunity.pack.typescript" },
+
   { "AstroNvim/astrocore",
     opts = {
       filetypes = {

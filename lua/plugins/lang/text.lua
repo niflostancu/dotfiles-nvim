@@ -1,4 +1,5 @@
 return {
+  { import = "astrocommunity.pack.markdown" },
   {
     "nblock/vim-dokuwiki",
     setup = function()

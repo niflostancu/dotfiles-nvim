@@ -1,10 +1,12 @@
 return {
-  {
-    "HiPhish/jinja.vim"
-  },
+  { import = "astrocommunity.pack.json" },
+  { import = "astrocommunity.pack.yaml" },
+
+  { "HiPhish/jinja.vim" },
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts) require("myconfig.utils").ensure_installed(opts, { "hcl" }) end,
+    opts = function(_, opts) require("myconfig.utils").ensure_installed(opts, {
+      "hcl" }) end,
   },
 }
 
