@@ -115,7 +115,6 @@ return {
         function() require('telescope.builtin').find_files() end,
         desc = "[Telescope] Find File"
       }
-      maps.n[";f"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" }
       maps.n[";F"] = {
         "<cmd>Telescope oldfiles<cr>", desc = "[Telescope] Old Files"
       }

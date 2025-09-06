@@ -16,6 +16,16 @@ return {
           H = false, -- preferred for tab cycling
           z = false, -- prefer default: re-center window
           [">"] = "toggle_hidden",
+          ["<C-f>"] = {
+            function (state)
+              require("myconfig.neotreeutils").launch_find_files(state, {})
+            end, desc = "Telescope find at current item"
+          },
+          ["<C-g>"] = {
+            function (state)
+              require("myconfig.neotreeutils").launch_live_grep(state, {})
+            end, desc = "Telescope live grep at current item"
+          }
         },
       },
     },
