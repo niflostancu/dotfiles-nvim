@@ -16,6 +16,19 @@ return {
           H = false, -- preferred for tab cycling
           z = false, -- prefer default: re-center window
           [">"] = "toggle_hidden",
+          ["."] = function(state)
+            -- make "." (set_root) always use tcd (by reimplementing it)
+            local fs = require("neo-tree.sources.filesystem")
+            if state.search_pattern then
+              fs.reset_search(state, false)
+            end
+            local node = state.tree:get_node()
+            if not node then
+              return
+            end
+            local basedir = node.type == "directory" and node.path or vim.fn.fnamemodify(node.path, ":h")
+            vim.cmd("tcd " .. basedir)
+          end,
           ["<C-f>"] = {
             function (state)
               require("myconfig.neotreeutils").launch_find_files(state, {})
