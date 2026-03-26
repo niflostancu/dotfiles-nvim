@@ -16,6 +16,10 @@ return {
       }
     end
   },
+  -- hex editor ;) 
+  { "RaafatTurki/hex.nvim",
+    opts = {}
+  },
   { "AstroNvim/astrocore",
     opts = {
       filetypes = {
