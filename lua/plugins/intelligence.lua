@@ -1,6 +1,13 @@
 
 return {
   { import = "astrocommunity.editing-support.codecompanion-nvim" },
+  { import = "astrocommunity.editing-support.vector-code-nvim" },
+  {
+    "Davidyz/VectorCode",
+    build = function()
+      if not vim.fn.executable "uv" then error "The VectorCode pack requires uv installed" end
+    end,
+  },
   {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown", "codecompanion" }
