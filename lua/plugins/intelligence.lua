@@ -1,13 +1,12 @@
+local llm_defaults = {
+  url = "http://127.0.0.1:11434",
+  model = "qwen3-coder-next:q4_K_M",
+  prompt_context = 1000,
+}
 
 return {
   { import = "astrocommunity.editing-support.codecompanion-nvim" },
   { import = "astrocommunity.editing-support.vector-code-nvim" },
-  {
-    "Davidyz/VectorCode",
-    build = function()
-      if not vim.fn.executable "uv" then error "The VectorCode pack requires uv installed" end
-    end,
-  },
   {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown", "codecompanion" }
@@ -28,18 +27,11 @@ return {
             return require("codecompanion.adapters").extend("ollama", {
               schema = {
                 model = {
-                  default = "qwen3-coder-next:q4_K_M"
+                  default = llm_defaults.model
                 },
               },
               env = {
-                url = "http://127.0.0.1:11434",
-              },
-              headers = {
-                ["Content-Type"] = "application/json",
-                -- ["Authorization"] = "Bearer ${api_key}",
-              },
-              parameters = {
-                -- sync = true,
+                url = llm_defaults.url,
               },
             })
           end,
