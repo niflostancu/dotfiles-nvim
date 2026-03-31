@@ -77,20 +77,21 @@ return {
         },
       },
     },
-    dependencies = {
-      "ravitemer/codecompanion-history.nvim",
-      {
-        "AstroNvim/astrocore",
-        opts = function(_, opts)
-          if not opts.mappings then opts.mappings = {} end
-          opts.mappings.n = opts.mappings.n or {}
-          opts.mappings.n["<Leader>Ah"] = { "<cmd>CodeCompanionHistory<cr>", desc = "Chat History" }
-          opts.mappings.n[";i"] = { "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Code Companion" }
-          opts.mappings.v[";i"] = { "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Code Companion" }
-          opts.mappings.n[";I"] = { "<cmd>CodeCompanionHistory<cr>", desc = "Code Companion Chat History" }
-        end,
-      },
-    }
+    dependencies = { "ravitemer/codecompanion-history.nvim", }
+  },
+  {
+    "ravitemer/codecompanion-history.nvim",
+    {
+      "AstroNvim/astrocore",
+      opts = function(_, opts)
+        if not opts.mappings then opts.mappings = {} end
+        opts.mappings.n = opts.mappings.n or {}
+        opts.mappings.n["<Leader>Ah"] = { "<cmd>CodeCompanionHistory<cr>", desc = "Chat History" }
+        opts.mappings.n[";i"] = { "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Code Companion" }
+        opts.mappings.v[";i"] = { "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Code Companion" }
+        opts.mappings.n[";I"] = { "<cmd>CodeCompanionHistory<cr>", desc = "Code Companion Chat History" }
+      end,
+    },
   },
   {
     -- sharedserver: for sharing MCP Companion between instances
