@@ -58,6 +58,9 @@ Do not include line numbers unless explicitly asked.
 
 ]],
           },
+          tools = {
+            opts = { },
+          },
         },
       },
       opts = {
@@ -75,7 +78,11 @@ Do not include line numbers unless explicitly asked.
             delete_on_clearing_chat = false,
             dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
           }
-        }
+        },
+        mcp_companion = {
+          callback = "mcp_companion.cc",
+          opts = {},
+        },
       },
     },
     dependencies = {
@@ -93,5 +100,31 @@ Do not include line numbers unless explicitly asked.
       },
     }
   },
-  -- TODO: https://github.com/Davidyz/VectorCode
+  {
+    -- sharedserver: for sharing MCP Companion between instances
+    "georgeharker/sharedserver",
+    build = "cargo install --path rust",
+    lazy = false,
+  },
+  {
+    "georgeharker/mcp-companion",
+    lazy = false,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "olimorris/codecompanion.nvim",
+      "georgeharker/sharedserver",
+    },
+    build = "cd bridge && uv venv --python 3.14 .venv && uv sync --frozen",
+    opts = {
+      bridge = {
+        config = _G["myconfigpath"] .. "/intelligence/mcp.json"
+      },
+      log = { level = "info", notify = "error" },
+    }
+  },
+  { "Davidyz/VectorCode",
+    build = function()
+      if not vim.fn.executable "uv" then error "The VectorCode pack requires uv installed" end
+    end,
+  },
 }
