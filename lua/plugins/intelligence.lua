@@ -1,6 +1,8 @@
 local llm_defaults = {
-  url = "http://127.0.0.1:11434",
-  model = "qwen3-coder-next:q4_K_M",
+  default = "llama_cpp",
+  ollama_url = "http://127.0.0.1:11434",
+  llama_cpp_url = "http://127.0.0.1:11444",
+  model = "qwen3-coder-next_q5",
   prompt_context = 1000,
 }
 
@@ -15,8 +17,8 @@ return {
     "olimorris/codecompanion.nvim",
     opts = {
       strategies = {
-        chat = { adapter = "ollama" },
-        inline = { adapter = "ollama" },
+        chat = { adapter = llm_defaults.default },
+        inline = { adapter = llm_defaults.default },
       },
       adapters = {
         http = {
@@ -26,13 +28,17 @@ return {
           ollama = function()
             return require("codecompanion.adapters").extend("ollama", {
               schema = {
-                model = {
-                  default = llm_defaults.model
-                },
+                model = { default = llm_defaults.model, },
               },
-              env = {
-                url = llm_defaults.url,
+              env = { url = llm_defaults.ollama_url, },
+            })
+          end,
+          llama_cpp = function()
+            return require("codecompanion.adapters").extend("openai_compatible", {
+              schema = {
+                model = { default = llm_defaults.model },
               },
+              env = { url = llm_defaults.llama_cpp_url, },
             })
           end,
         },
