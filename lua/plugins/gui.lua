@@ -23,6 +23,7 @@ return {
       -- setup winblend for transparency
       opt.winblend = cfg_winblend
       opt.pumblend = cfg_winblend
+      opt.background = "dark"
 
       -- Neovide GUI specific configs
       if vim.g.neovide then
