@@ -7,7 +7,7 @@ local llm_defaults = {
 }
 
 return {
-  { import = "astrocommunity.editing-support.codecompanion-nvim" },
+  { import = "astrocommunity.ai.codecompanion-nvim" },
   { import = "astrocommunity.editing-support.vector-code-nvim" },
   {
     "MeanderingProgrammer/render-markdown.nvim",
