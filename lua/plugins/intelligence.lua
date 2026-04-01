@@ -6,6 +6,8 @@ local llm_defaults = {
   prompt_context = 1000,
 }
 
+local ai_utils = require("myconfig.ai_utils")
+
 return {
   { import = "astrocommunity.ai.codecompanion-nvim" },
   { import = "astrocommunity.editing-support.vector-code-nvim" },
@@ -39,6 +41,10 @@ return {
                 model = { default = llm_defaults.model },
               },
               env = { url = llm_defaults.llama_cpp_url, },
+              handlers = {
+                form_messages = ai_utils.llama_cpp_form_messages,
+                parse_message_meta = ai_utils.llama_cpp_parse_message_meta,
+              },
             })
           end,
         },
