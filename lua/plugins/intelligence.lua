@@ -2,7 +2,7 @@ local llm_defaults = {
   default = "llama_cpp",
   ollama_url = "http://127.0.0.1:11434",
   llama_cpp_url = "http://127.0.0.1:11444",
-  model = "qwen3-coder-next_q5",
+  model = "qwen3-coder-next_q4xl",
   prompt_context = 1000,
 }
 
@@ -53,7 +53,8 @@ return {
         chat = {
           opts = {
             system_prompt = function ()
-              return vim.fn.readfile(_G["myconfigpath"] .. "/intelligence/system-prompt.txt")
+              local lines = vim.fn.readfile(_G["myconfigpath"] .. "/intelligence/system-prompt.txt")
+              return table.concat(lines, "\n");
             end,
           },
           tools = {
@@ -80,10 +81,20 @@ return {
         mcp_companion = {
           callback = "mcp_companion.cc",
           opts = {},
+        spinner = {
+          enabled = true,
+          opts = {
+            style = "fidget",
+          },
+        },
         },
       },
     },
-    dependencies = { "ravitemer/codecompanion-history.nvim", }
+    dependencies = {
+      "ravitemer/codecompanion-history.nvim",
+      "lalitmee/codecompanion-spinners.nvim",
+      "j-hui/fidget.nvim",
+    }
   },
   {
     "ravitemer/codecompanion-history.nvim",
@@ -113,7 +124,7 @@ return {
       "olimorris/codecompanion.nvim",
       "georgeharker/sharedserver",
     },
-    build = "cd bridge && uv venv --python 3.14 .venv && uv sync --frozen",
+    build = "cd bridge && uv sync --frozen",
     opts = {
       bridge = {
         config = _G["myconfigpath"] .. "/intelligence/mcp.json"
@@ -124,6 +135,6 @@ return {
   { "Davidyz/VectorCode",
     build = function()
       if not vim.fn.executable "uv" then error "The VectorCode pack requires uv installed" end
-    end,
+    end
   },
 }
