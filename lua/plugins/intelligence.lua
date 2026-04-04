@@ -12,10 +12,6 @@ return {
   { import = "astrocommunity.ai.codecompanion-nvim" },
   { import = "astrocommunity.editing-support.vector-code-nvim" },
   {
-    "MeanderingProgrammer/render-markdown.nvim",
-    ft = { "markdown", "codecompanion" }
-  },
-  {
     "olimorris/codecompanion.nvim",
     opts = {
       strategies = {

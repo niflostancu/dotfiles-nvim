@@ -1,5 +1,47 @@
 return {
+  -- Markdown TreeSitter + LSP
   { import = "astrocommunity.pack.markdown" },
+	-- Markdown Preview
+  {
+    "OXY2DEV/markview.nvim",
+    ft = { "markdown", "quarto", "rmd", "typst", "codecompanion" },
+    opts = {
+      markdown = {
+        enable = true,
+      },
+      markdown_inline = {
+        enable = true,
+      },
+      preview = {
+        enable = true,
+        filetypes = { "markdown", "quarto", "rmd", "typst", "codecompanion" },
+        ignore_buftypes = {},
+        condition = function (buffer)
+          local ft, bt = vim.bo[buffer].ft, vim.bo[buffer].bt
+          if bt == "nofile" and ft == "codecompanion" then
+            return true
+          elseif bt == "nofile" then
+            return false
+          else
+            return nil
+          end
+        end,
+        modes = { "n", "no", "c" },
+        hybrid_modes = { "n" },
+        linewise_hybrid_mode = false,
+      },
+    },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      opts = function(_, opts)
+        if opts.ensure_installed ~= "all" then
+          opts.ensure_installed =
+          require("astrocore").list_insert_unique(opts.ensure_installed, { "html", "markdown", "markdown_inline" })
+        end
+      end,
+    },
+  },
+  -- DokuWiki format
   {
     "nblock/vim-dokuwiki",
     setup = function()
