@@ -59,7 +59,7 @@ return {
             end
           end,
         },
-      };
+      }
       opts.mappings.n["Z"] = { "<Cmd>ZenMode<CR>", desc = "Zen Mode" }
     end
   },
@@ -67,6 +67,18 @@ return {
   {
     "stevearc/conform.nvim",
   },
+  -- Magic soft/hard wrapping detection (for text formats)
+  {
+    "andrewferrier/wrapping.nvim",
+    opts = {
+      notify_on_switch = false,
+      auto_set_mode_filetype_allowlist = {
+        -- "asciidoc", "gitcommit", "latex", "mail",
+        -- "markdown", "rst", "tex", "text", "doku", "dokuwiki",
+      },
+    },
+  },
+  -- Zen Mode (displays buffer in single centered window)
   {
     "folke/zen-mode.nvim",
     cmd = "ZenMode",
@@ -93,4 +105,3 @@ return {
     },
   }
 }
-
