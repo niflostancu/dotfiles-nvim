@@ -74,15 +74,21 @@ return {
             dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
           }
         },
-        mcp_companion = {
-          callback = "mcp_companion.cc",
-          opts = {},
         spinner = {
           enabled = true,
           opts = {
             style = "fidget",
           },
         },
+      },
+      mcp = {
+        servers = {
+          ["vectorcode"] = {
+            cmd = { "vectorcode-mcp-server", },
+          },
+        },
+        opts = {
+          -- default_servers = { "vectorcode" },
         },
       },
     },
@@ -125,7 +131,17 @@ return {
       bridge = {
         config = _G["myconfigpath"] .. "/intelligence/mcp.json"
       },
-      log = { level = "info", notify = "error" },
+      auto_approve = function(tool_name, server_name, ctx)
+        -- auto-approve all read-only tools
+        if tool_name:match("^get_") or tool_name:match("^list_") then
+          return true
+        end
+        return false
+      end,
+      ui = {
+        enabled = true, width = 0.5, height = 0.5, border = "rounded",
+      },
+      log = { level = "debug", notify = "error" },
     }
   },
   { "Davidyz/VectorCode",
