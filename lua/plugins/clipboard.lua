@@ -47,7 +47,7 @@ return {
           },
           {
             event = { "CursorHold", "FocusGained" },
-            callback = function() vim.cmd("rshada") end,
+            callback = function() pcall(vim.cmd, "rshada") end,
             desc = "Reload shada on idle / focus"
           }
         }
