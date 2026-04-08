@@ -8,6 +8,15 @@ return {
     opts = {
       markdown = {
         enable = true,
+        list_items = {
+          enable = true,
+          shift_width = 2,
+          marker_minus = { add_padding = false, },
+          marker_plus = { add_padding = false, },
+          marker_star = { add_padding = false, },
+          marker_dot = { add_padding = false, },
+          marker_parenthesis = { add_padding = false, },
+        }
       },
       markdown_inline = {
         enable = true,
