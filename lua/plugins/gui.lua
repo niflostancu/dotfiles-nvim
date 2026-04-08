@@ -2,6 +2,8 @@
   GUI customizations (Neovide).
 ]]
 
+local dirsess_opts = require("myconfig.session_utils").dirsess_opts
+
 local change_scale_factor = function(delta)
   vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
 end
@@ -78,25 +80,43 @@ return {
     end
   },
   {
-    "goolord/alpha-nvim",
-    opts = function(_, opts)
-      -- ASCII Art using https://patorjk.com/software/taag/
-      -- Font name: Mono 9
-      opts.section.header.val = {
-        [[                                   ]],
-        [[ ▄▄   ▄   ▀      ▄▀▀  ▀▀█          ]],
-        [[ █▀▄  █ ▄▄▄    ▄▄█▄▄    █     ▄▄▄  ]],
-        [[ █ █▄ █   █      █      █    █▀ ▀█ ]],
-        [[ █  █ █   █      █      █    █   █ ]],
-        [[ █   ██ ▄▄█▄▄    █      ▀▄▄  ▀█▄█▀ ]],
-        [[                                   ]],
-        [[       ▄    ▄   ▀                  ]],
-        [[       ▀▄  ▄▀ ▄▄▄    ▄▄▄▄▄         ]],
-        [[        █  █    █    █ █ █         ]],
-        [[        ▀▄▄▀    █    █ █ █         ]],
-        [[         ██   ▄▄█▄▄  █ █ █         ]],
-
-      }
-    end,
+    "folke/snacks.nvim",
+    opts = {
+      dashboard = {
+        preset = {
+          keys = {
+            { icon = " ", key = "n", desc = "New File", 
+              action = ":ene | startinsert" },
+            { icon = " ", key = "f", desc = "Find File",
+              action = ":lua Snacks.dashboard.pick('files')" },
+            { icon = " ", key = "g", desc = "Find Text",
+              action = ":lua Snacks.dashboard.pick('live_grep')" },
+            { icon = " ", key = "r", desc = "Recent Files",
+              action = ":lua Snacks.dashboard.pick('oldfiles')" },
+            { icon = " ", key = "C", desc = "Config",
+              action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+            { icon = " ", key = "s", desc = "Restore Dir Session", action = function()
+              require("resession").load(".resession", dirsess_opts())
+            end },
+            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+          },
+          -- ASCII Art using https://patorjk.com/software/taag/
+          -- Font name: Mono 9
+          header = [[
+                                   
+ ▄▄   ▄   ▀      ▄▀▀  ▀▀█          
+ █▀▄  █ ▄▄▄    ▄▄█▄▄    █     ▄▄▄  
+ █ █▄ █   █      █      █    █▀ ▀█ 
+ █  █ █   █      █      █    █   █ 
+ █   ██ ▄▄█▄▄    █      ▀▄▄  ▀█▄█▀ 
+                                   
+       ▄    ▄   ▀                  
+       ▀▄  ▄▀ ▄▄▄    ▄▄▄▄▄         
+        █  █    █    █ █ █         
+        ▀▄▄▀    █    █ █ █         
+         ██   ▄▄█▄▄  █ █ █         ]]
+        },
+      },
+    },
   }
 }

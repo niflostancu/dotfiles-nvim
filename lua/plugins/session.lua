@@ -1,15 +1,6 @@
 -- Session management plugins & customizations
 
-local dirsess_opts = function()
-  -- return currently loaded session dir if any, otherwise the working directory
-  local Path = require("plenary.path")
-  local session_dir = Path:new(vim.fn.getcwd()):absolute()
-  local session_info = require("resession").get_current_session_info()
-  if session_info and session_info["dir"] then
-    session_dir = session_info["dir"]
-  end
-  return { dir = session_dir }
-end
+local dirsess_opts = require("myconfig.session_utils").dirsess_opts
 
 return {
   {
@@ -68,22 +59,6 @@ return {
         end
       }
     }
-  },
-  {
-    "goolord/alpha-nvim",
-    opts = function(_, opts) -- override the options using lazy.nvim
-      local get_icon = require("astroui").get_icon
-      opts.section.buttons.val = {
-        opts.button("n", get_icon("FileNew", 2, true) .. "New File  ", "<Cmd>ene!<CR>"),
-        opts.button("f", get_icon("Search", 2, true) .. "Find File  ", "<Cmd>Telescope find_files<CR>"),
-        opts.button("F", get_icon("DefaultFile", 2, true) .. "Recents  ", "<Cmd>Telescope oldfiles<CR>"),
-        opts.button("g", get_icon("WordFile", 2, true) .. "Find Word  ", "<Cmd>Telescope live_grep<CR>"),
-        opts.button("s", get_icon('Refresh', 2, true) .. " Load dir session", function()
-          require("resession").load(".resession", dirsess_opts())
-        end),
-        opts.button("q", get_icon('TabClose', 2, true) .. " Quit", "<Cmd>:qa!<CR>")
-      }
-    end,
   },
   -- plugin to close unedited buffers when the list becomes too large
   {
