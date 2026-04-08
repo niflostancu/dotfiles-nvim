@@ -5,7 +5,7 @@ if _G["myconfigpath"] ~= nil then table.insert(additional_rtp, _G["myconfigpath"
 require("lazy").setup({
   {
     "AstroNvim/AstroNvim",
-    version = "^4",
+    version = "^6",
     import = "astronvim.plugins",
     opts = {
       mapleader = " ",
