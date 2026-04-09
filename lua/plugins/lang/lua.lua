@@ -1,11 +1,9 @@
 return {
   {
-    "williamboman/mason-lspconfig.nvim",
-    opts = function(_, opts) require("myconfig.utils").ensure_installed(opts, { "lua_ls" }) end,
-  },
-  {
-    "jay-babu/mason-null-ls.nvim",
-    opts = function(_, opts) require("myconfig.utils").ensure_installed(opts, { "prettier", "stylua" }) end,
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = {
+      ensure_installed = { "lua-language-server", "prettier", "stylua" },
+    },
   },
   {
     "nvim-treesitter/nvim-treesitter",
