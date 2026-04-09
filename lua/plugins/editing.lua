@@ -11,17 +11,20 @@ return {
       }
     }
   },
-  -- Highlight current indentation column
+  -- Indentation lines
   {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "User AstroFile",
+    "folke/snacks.nvim",
     opts = {
-      indent = { char = "│" },
-      scope = { enabled = true },
-      whitespace = { remove_blankline_trail = true },
-      exclude = {
-        filetypes = { "help", "alpha", "dashboard", "Trouble", "lazy", "neo-tree" },
-      },
+      indent = {
+        enabled = true,
+        char = "│",
+        only_scope = false,
+        only_current = false,
+        filter = function(buf, _)  -- _ is win
+          local ignorefts = { "help", "alpha", "dashboard", "Trouble", "lazy", "neo-tree" }
+          return not vim.tbl_contains(ignorefts, vim.bo[buf].ft)
+        end,
+      }
     },
   },
   -- Astrocore customizations for focus.nvim exclusions
