@@ -11,10 +11,10 @@ return {
       }
     }
   },
-  -- Indentation lines
   {
     "folke/snacks.nvim",
     opts = {
+      -- Indentation lines
       indent = {
         enabled = true,
         char = "│",
@@ -24,7 +24,15 @@ return {
           local ignorefts = { "help", "alpha", "dashboard", "Trouble", "lazy", "neo-tree" }
           return not vim.tbl_contains(ignorefts, vim.bo[buf].ft)
         end,
-      }
+      },
+      -- Zen Mode (displays buffer in single centered window)
+      zen = {
+        toggles = {
+          dim = true,
+          git_signs = false,
+          mini_diff_signs = false,
+        }
+      },
     },
   },
   -- Astrocore customizations for focus.nvim exclusions
@@ -63,7 +71,7 @@ return {
           end,
         },
       }
-      opts.mappings.n["Z"] = { "<Cmd>ZenMode<CR>", desc = "Zen Mode" }
+      opts.mappings.n["Z"] = { function() Snacks.zen() end, desc = "Zen Mode" }
     end
   },
   -- Conform formatter
