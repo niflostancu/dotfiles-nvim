@@ -44,7 +44,7 @@ return {
             function()
               local diropt = dirsess_opts()
               require("resession").save(".resession", diropt)
-              require("notify")("Session saved to " .. diropt["dir"])
+              Snacks.notify("Session saved to " .. diropt["dir"])
             end,
             desc = "Save dirsession",
           }
