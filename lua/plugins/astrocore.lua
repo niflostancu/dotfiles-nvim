@@ -12,13 +12,17 @@ return {
       autopairs = true, -- enable autopairs at start
       cmp = true, -- enable completion at start
       diagnostics = true, -- diagnostic mode on start
+      virtual_lines = false, -- no, please
       highlighturl = true, -- highlight URLs at start
       notifications = true, -- enable notifications at start
     },
-    -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
+    -- Diagnostics configuration
     diagnostics = {
       virtual_text = true,
+      virtual_lines = false,
+      update_in_insert = false,
       underline = true,
+      severity_sort = true,
     },
     -- vim options can be configured here
     options = {

@@ -9,7 +9,7 @@ return {
     -- Configuration table of features provided by AstroLSP
     features = {
       autoformat = false,
-      codelens = true,
+      codelens = false,
       inlay_hints = false,
       semantic_tokens = true,
     },
