@@ -60,18 +60,6 @@ return {
     end,
   },
   {
-    "nvim-telescope/telescope.nvim",
-    opts = function (_, opts)
-      if vim.g.neovide then
-        -- workaround: neovide renders two stacked floating windows,
-        -- so further increase transparency (additively applied to both of them)
-        opts.defaults.winblend = cfg_winblend + 10
-      else
-        opts.defaults.winblend = cfg_winblend
-      end
-    end
-  },
-  {
     "folke/which-key.nvim",
     opts = function (_, opts)
       opts.win = opts.win or {}

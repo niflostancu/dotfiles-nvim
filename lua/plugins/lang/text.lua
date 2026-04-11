@@ -97,22 +97,22 @@ return {
       },
     },
   },
-  -- Notmuch email address finder (Telescope extension)
+  -- Notmuch email address finder (TODO: port from Telescope to Snacks.picker!)
   {
     "https://codeberg.org/JoshuaCrewe/telescope-notmuch.nvim.git",
     ft = {'mail'},
     setup = function()
-      require("telescope").load_extension("notmuch")
+      -- require("telescope").load_extension("notmuch")
     end,
-    dependencies = {"nvim-telescope/telescope.nvim"}
+    -- dependencies = {"nvim-telescope/telescope.nvim"}
   },
   { "AstroNvim/astrocore",
     opts = function(_, opts)
       local maps = opts.mappings
-      maps.n["<Leader>fe"] = {
-        "<cmd>Telescope notmuch theme=cursor<CR>",
-        desc = "[Find] Notmuch Emails"
-      }
+      -- maps.n["<Leader>fe"] = {
+      --   "<cmd>Telescope notmuch theme=cursor<CR>",
+      --   desc = "[Find] Notmuch Emails"
+      -- }
     end
   }
 }

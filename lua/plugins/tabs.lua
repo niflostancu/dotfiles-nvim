@@ -63,7 +63,7 @@ return {
     end,
     dependencies = {
       {'rebelot/heirline.nvim'},
-      {'echasnovski/mini.icons'}
+      {'nvim-mini/mini.icons'}
     },
   },
   {

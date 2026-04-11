@@ -22,12 +22,12 @@ return {
         kind = "tab",
       },
       integrations = {
-        telescope = true,
+        snacks = true,
         diffview = nil,
       }
     },
     dependencies = {
-      { "nvim-telescope/telescope.nvim" },
+      { "folke/snacks.nvim" },
       { "sindrets/diffview.nvim", dependencies = {'nvim-lua/plenary.nvim'} },
       {
         "AstroNvim/astrocore", dependencies = {"lewis6991/gitsigns.nvim"},

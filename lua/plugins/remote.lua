@@ -2,6 +2,7 @@ return {
   {
     "nosduco/remote-sshfs.nvim",
     opts = {
+      ui = { picker = "snacks" },
       connections = {
         sshfs_args = { -- arguments to pass to the sshfs command
           "-o reconnect",
@@ -14,7 +15,7 @@ return {
       },
     },
     dependencies = {
-      "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim",
+      "folke/snacks.nvim", "nvim-lua/plenary.nvim",
       {
         -- add key bindings using astrocore
         "AstroNvim/astrocore",
@@ -27,8 +28,7 @@ return {
           mappings.n["<Leader>rd"] = { api.disconnect, desc = "[R/SSHFS] Disconnect" }
           mappings.n["<Leader>re"] = { api.edit, desc = "[R/SSHFS] Edit" }
 
-          -- override telescope find_files and live_grep to act based on whether connected to ssh
-          local builtin = require("telescope.builtin")
+          -- override default pickers based on whether connected to ssh
           local connections = require("remote-sshfs.connections")
           local check_pwd_conn = function()
             if not connections.is_connected() then return false end
@@ -43,20 +43,22 @@ return {
               if check_pwd_conn() then
                 api.find_files()
               else
-                builtin.find_files()
+                Snacks.picker.files {
+                  hidden = vim.tbl_get((vim.uv or vim.loop).fs_stat ".git" or {}, "type") == "directory",
+                }
               end
             end,
-            desc = "[Telescope] Find File"
+            desc = "[Picker] Find Files"
           }
           mappings.n[";g"] = {
             function()
               if check_pwd_conn() then
                 api.live_grep()
               else
-                builtin.live_grep()
+                Snacks.picker.grep()
               end
             end,
-            desc = "[Telescope] Grep Files"
+            desc = "[Picker] Grep Files"
           }
         end
       },

@@ -63,16 +63,6 @@ return {
   -- plugin to close unedited buffers when the list becomes too large
   {
     'axkirillov/hbac.nvim',
-    dependencies = {
-      {
-        "nvim-telescope/telescope.nvim",
-        opts = {
-          extensions = {
-            hbac = {},
-          },
-        }
-      },
-    },
     opts = {
       autoclose = false,
       threshold = 30, -- number of buffers to trigger
@@ -80,7 +70,6 @@ return {
         vim.api.nvim_buf_delete(bufnr, {})
       end,
       close_buffers_with_windows = false,
-      -- telescope = {},
     },
     config = function (_, opts)
       require("hbac").setup(opts)

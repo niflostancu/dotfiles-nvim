@@ -89,6 +89,14 @@ return {
       },
     },
   },
+  -- Find and replace plugin
+  {
+    "nvim-pack/nvim-spectre",
+    opts = {
+      open_cmd = 'vnew',
+    },
+    config = true
+  },
   -- Zen Mode (displays buffer in single centered window)
   {
     "folke/zen-mode.nvim",

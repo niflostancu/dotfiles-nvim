@@ -32,12 +32,12 @@ return {
           ["<C-f>"] = {
             function (state)
               require("myconfig.neotreeutils").launch_find_files(state, {})
-            end, desc = "Telescope find at current item"
+            end, desc = "[Picker] Find at current node"
           },
           ["<C-g>"] = {
             function (state)
               require("myconfig.neotreeutils").launch_live_grep(state, {})
-            end, desc = "Telescope live grep at current item"
+            end, desc = "[Picker] Live grep at current node"
           }
         },
       },

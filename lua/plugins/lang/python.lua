@@ -3,7 +3,7 @@ return {
   {
     "neolooong/whichpy.nvim",
     dependencies = {
-      "nvim-telescope/telescope.nvim",
+      "folke/snacks.nvim",
       -- "mfussenegger/nvim-dap-python",
     },
     opts = {},

@@ -1,56 +1,31 @@
 --[[
-  Finder plugins & mappings.
+  Picker (fuzzy finder) plugins & mappings.
 ]]
 
 return {
   {
-    'nvim-telescope/telescope-ui-select.nvim',
-    config = function()
-      require("telescope").load_extension("ui-select")
-    end
-  },
-  {
-    "nvim-telescope/telescope.nvim",
+    "folke/snacks.nvim",
+    ---@type snacks.Config
     opts = {
-      theme = "dropdown",
-      defaults = {
-        -- winblend = vim.g.mycfg_float_winblend + 10,
-        sorting_strategy = "ascending",
-        -- layout_strategy = "bottom_pane",
-        layout_strategy = "horizontal",
-        layout_config = {
-          horizontal = {
-            prompt_position = "bottom",
-            preview_width = 0.55,
-            results_width = 0.6,
-          },
-          vertical = {
-            mirror = false,
-          },
-          width = 0.75,
-          height = 0.70,
-          preview_cutoff = 100,
+      -- Fuzzy finder/picker
+      picker = {
+        ---@class snacks.picker.matcher.Config
+        matcher = {
+          smartcase = true, ignorecase = true,
+          filename_bonus = true, -- bonus for matching file names (last part of the path)
+          cwd_bonus = true, -- give bonus for matching files in the cwd
+          frecency = true, -- frecency bonus
+          history_bonus = true, -- give more weight to chronological order
         },
-        path_display = { truncate = 3 },
-        dynamic_preview_title = true,
-        -- use flat border
-        borderchars = {" ", " ", " ", " ", " ", " ", " ", " "},
-        -- ripgrep args
-        vimgrep_arguments = {
-          "rg", "--color=never", "--no-require-git",
-          "--no-heading", "--with-filename",
-          "--line-number", "--column", "--smart-case"
-        }
+        -- replace `vim.ui.select` with the snacks picker
+        ui_select = true,
       },
-    },
-    extensions = {
-      ["ui-select"] = {
-        require("telescope.themes").get_dropdown {
-          -- even more opts
-        }
+      -- vim.ui.input replacement
+      input = {
       }
     }
   },
+  -- file explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = function(_, opts)
@@ -71,13 +46,7 @@ return {
       })
     end,
   },
-  {
-    "nvim-pack/nvim-spectre",
-    opts = {
-      open_cmd = 'vnew',
-    },
-    config = true
-  },
+  -- adjust key mappings
   {
     "AstroNvim/astrocore",
     opts = function(_, opts)
@@ -86,23 +55,18 @@ return {
         desc = "[Find]"
       }
       maps.n[";b"] = {
-        function() require('telescope.builtin').buffers({
-          only_cwd = true,
-          sort_mru = true,
-          show_all_buffers = false,
+        function() Snacks.picker.buffers({
+          hidden = false,
+          unloaded = true,
+          current = false,
           sort_lastused = true,
-          ignore_current_buffer = true,
-          previewer = false,
+          filter = { cwd = true, },
         }) end,
-        desc = "[Telescope] Buffers (cwd)"
+        desc = "[Picker] Buffers (cwd)"
       }
       maps.n[";B"] = {
-        function() require('telescope').extensions.hbac.buffers({
-          sort_mru = true,
-          sort_lastused = true,
-          previewer = false,
-        }) end,
-        desc = "[Telescope] Buffers (all)"
+        function() Snacks.picker.buffers() end,
+        desc = "[Picker] Buffers (all)"
       }
       maps.n[";e"] = {
         function()
@@ -112,40 +76,46 @@ return {
         desc = "[NVR] Remote Open"
       }
       maps.n[";f"] = {
-        function() require('telescope.builtin').find_files() end,
-        desc = "[Telescope] Find File"
+        function()
+          Snacks.picker.files {
+            hidden = vim.tbl_get((vim.uv or vim.loop).fs_stat ".git" or {}, "type") == "directory",
+          }
+        end,
+        desc = "[Picker] Find Files (filtered)"
       }
       maps.n[";F"] = {
-        "<cmd>Telescope oldfiles<cr>", desc = "[Telescope] Old Files"
+        function() Snacks.picker.files { hidden = true, ignored = true } end,
+        desc = "[Picker] Find All Files"
       }
       maps.n[";g"] = {
-        "<cmd>Telescope live_grep<cr>", desc = "[Telescope] Grep Files"
+        function() Snacks.picker.grep() end,
+        desc = "[Picker] Grep Files"
       }
       maps.n[";G"] = {
-        function() require('telescope.builtin').live_grep({grep_open_files=true}) end,
-        desc = "[Telescope] Grep Files"
+        function() Snacks.picker.grep { hidden = true, ignored = true } end,
+        desc = "[Picker] Grep All Files"
       }
       maps.n[";r"] = {
-        "<Cmd>Telescope resume<CR>", desc = "[Telescope] Resume previous find"
+        function() Snacks.picker.resume() end,
+        desc = "[Snakcs] Resume previous find"
       }
       maps.n[";;"] = {
-        "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
+        function() Snacks.picker.lsp_workspace_symbols() end,
         desc = "[LSP] Workspace Symbols"
       }
       maps.v = maps.v or {}
       maps.v[";g"] = {
         function()
           local text = require('myconfig.utils').get_visual_selection()
-          require('telescope.builtin').grep_string { default_text = text }
+          Snacks.picker.grep({ cmd = text })
         end,
-        desc = "[Telescope] Grep Selection"
+        desc = "[Picker] Grep Selection"
       }
       maps.c = maps.c or {}
       maps.c['<C-t>'] = {
-        [[<Cmd>lua require('telescope.builtin').command_history()<CR>]],
-        desc = "[Telescope] Search Command History"
+        function() Snacks.picker.command_history() end,
+        desc = "[Picker] Search Command History"
       }
-
     end
-  }
+  },
 }
