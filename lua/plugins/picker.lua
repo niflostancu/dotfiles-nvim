@@ -107,7 +107,7 @@ return {
       maps.v[";g"] = {
         function()
           local text = require('myconfig.utils').get_visual_selection()
-          Snacks.picker.grep({ cmd = text })
+          Snacks.picker.grep({ search = text })
         end,
         desc = "[Picker] Grep Selection"
       }
