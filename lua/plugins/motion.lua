@@ -55,6 +55,16 @@ return {
         },
       },
     },
+    {
+      "folke/which-key.nvim",
+      opts = function (_, opts)
+        -- must add Picker menu here as flash.nvim wants to add ';' bindings
+        local wk = require("which-key")
+        wk.add({ ";", function()
+            require("which-key").show({ keys = ";" })
+          end, desc = "[Picker]", mode = "n" })
+      end
+    }
   },
   opts = {},
 }

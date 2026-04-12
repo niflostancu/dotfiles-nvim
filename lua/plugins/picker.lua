@@ -51,9 +51,6 @@ return {
     "AstroNvim/astrocore",
     opts = function(_, opts)
       local maps = opts.mappings
-      maps.n[";"] = {
-        desc = "[Find]"
-      }
       maps.n[";b"] = {
         function() Snacks.picker.buffers({
           hidden = false,
