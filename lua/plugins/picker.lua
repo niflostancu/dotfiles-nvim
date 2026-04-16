@@ -46,7 +46,7 @@ return {
       })
     end,
   },
-  -- adjust key mappings
+  -- adjust key mappings & highlights
   {
     "AstroNvim/astrocore",
     opts = function(_, opts)
@@ -110,8 +110,24 @@ return {
       }
       maps.c = maps.c or {}
       maps.c['<C-t>'] = {
-        function() Snacks.picker.command_history() end,
+        function()
+          vim.api.nvim_input("<Esc>")
+          Snacks.picker.command_history()
+        end,
         desc = "[Picker] Search Command History"
+      }
+
+      opts.autocmds.snacks_hl_edit = {
+        {
+          event = "FileType",
+          pattern = "snacks_picker_list",
+          desc = "Adjust Snacks.picker highlights",
+          callback = function()
+            vim.api.nvim_set_hl(0, "SnacksPickerTree", { link = "SnacksPickerList" })
+            vim.api.nvim_set_hl(0, "SnacksPickerDir", { link = "SnacksPickerList" })
+            vim.api.nvim_set_hl(0, "SnacksPickerFile", { link = "SnacksPickerRow" })
+          end,
+        }
       }
     end
   },
