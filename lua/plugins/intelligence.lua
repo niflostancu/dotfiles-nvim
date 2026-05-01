@@ -14,10 +14,6 @@ return {
   {
     "olimorris/codecompanion.nvim",
     opts = {
-      strategies = {
-        chat = { adapter = llm_defaults.default },
-        inline = { adapter = llm_defaults.default },
-      },
       adapters = {
         http = {
           opts = {
@@ -47,6 +43,7 @@ return {
       },
       interactions = {
         chat = {
+          adapter = llm_defaults.default,
           opts = {
             system_prompt = function ()
               local lines = vim.fn.readfile(_G["myconfigpath"] .. "/intelligence/system-prompt.txt")
@@ -56,6 +53,9 @@ return {
           tools = {
             opts = { },
           },
+        },
+        inline = {
+          adapter = llm_defaults.default
         },
       },
       opts = {
