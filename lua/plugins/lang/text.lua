@@ -4,7 +4,7 @@ return {
 	-- Markdown Preview
   {
     "OXY2DEV/markview.nvim",
-    ft = { "markdown", "quarto", "rmd", "typst", "codecompanion" },
+    ft = { "markdown", "quarto", "rmd", "typst", "tex", "latex", "codecompanion" },
     opts = {
       markdown = {
         enable = true,
@@ -20,6 +20,10 @@ return {
       },
       markdown_inline = {
         enable = true,
+      },
+      latex = {
+        enable = true,
+        inlines = { enable = true, },
       },
       preview = {
         enable = true,
