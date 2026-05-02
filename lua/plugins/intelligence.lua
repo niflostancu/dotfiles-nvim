@@ -4,6 +4,13 @@ local llm_defaults = {
   llama_cpp_url = "http://127.0.0.1:11444",
   model = "qwen3-coder-next_q4xl",
   prompt_context = 1000,
+  rules = {
+    ".clinerules", ".cursorrules", ".goosehints", ".rules", ".windsurfrules",
+    ".github/copilot-instructions.md", "AGENT.md", "AGENTS.md",
+    { path = "CLAUDE.md", parser = "claude" },
+    { path = "CLAUDE.local.md", parser = "claude" },
+    { path = _G["myconfigpath"] .. "/intelligence/default.md", parser = "codecompanion" },
+  }
 }
 
 local ai_utils = require("myconfig.ai_utils")
@@ -56,6 +63,21 @@ return {
         },
         inline = {
           adapter = llm_defaults.default
+        },
+      },
+      rules = {
+        default = {
+          description = "Default rules (+ use project-specific, if any)",
+          files = llm_defaults.rules,
+        },
+        caveman = {
+          description = "Caveman (brief) mode",
+          files = vim.tbl_deep_extend('force', llm_defaults.rules, {
+            { path = _G["myconfigpath"] .. "/intelligence/caveman.md", parser = "codecompanion" },
+          }),
+        },
+        opts = {
+          chat = { autoload = "caveman", enabled = true },
         },
       },
       opts = {
