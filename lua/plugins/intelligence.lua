@@ -109,6 +109,25 @@ return {
         opts.mappings.n[";i"] = { "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Code Companion" }
         opts.mappings.v[";i"] = { "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Code Companion" }
         opts.mappings.n[";I"] = { "<cmd>CodeCompanionHistory<cr>", desc = "Code Companion Chat History" }
+
+        opts.autocmds.ccompanion_persist_model = { {
+          event = "User",
+          desc = "Persist CodeCompanion model on chat open/close events",
+          pattern = "CodeCompanionChatCreated",
+          callback = function(args)
+            local chat = require("codecompanion").buf_get_chat(args.data.bufnr)
+            -- load stored model at creation
+            local saved = ai_utils.cc_persist.load()
+            if saved then
+              chat:change_model({ model = saved.model })
+            end
+            -- add callback to save the current model
+            chat:add_callback("on_closed", function(c, info)
+              local data = { model = chat.settings.model }
+              ai_utils.cc_persist.save(data)
+            end)
+          end
+        } }
       end,
     },
   },

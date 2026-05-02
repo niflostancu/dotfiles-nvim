@@ -47,4 +47,23 @@ M.llama_cpp_parse_message_meta = function(self, data)
     return data
 end
 
+-- CodeCompanion persistence utils
+M.cc_persist = {
+    path = vim.fn.stdpath("state") .. "/codecompanion-last.json",
+    save = function(data)
+        local f = io.open(M.cc_persist.path, "w")
+        if not f then return end
+        f:write(vim.json.encode(data))
+        f:close()
+    end,
+    load = function()
+        local f = io.open(M.cc_persist.path, "r")
+        if not f then return nil end
+        local status, data = pcall(vim.json.decode, f:read("*all"))
+        f:close()
+        if not status then return nil end
+        return data
+    end
+}
+
 return M
