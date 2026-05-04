@@ -20,8 +20,11 @@ return {
     end,
   },
   {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts) require("myconfig.utils").ensure_installed(opts, { "lua", "vim" }) end,
+    "AstroNvim/astrocore",
+    opts = function(_, opts)
+      require("myconfig.utils").ensure_installed(opts.treesitter,
+        { "lua", "vim" })
+    end,
   },
   -- LuaLS config for nvim Lazy dotfiles
   {

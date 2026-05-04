@@ -45,12 +45,10 @@ return {
       },
     },
     dependencies = {
-      "nvim-treesitter/nvim-treesitter",
+      "AstroNvim/astrocore",
       opts = function(_, opts)
-        if opts.ensure_installed ~= "all" then
-          opts.ensure_installed =
-          require("astrocore").list_insert_unique(opts.ensure_installed, { "html", "markdown", "markdown_inline" })
-        end
+        require("myconfig.utils").ensure_installed(opts.treesitter,
+          { "html", "markdown", "markdown_inline" })
       end,
     },
   },

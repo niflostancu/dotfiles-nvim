@@ -6,9 +6,11 @@ return {
     opts = {},
   },
   {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts) require("myconfig.utils").ensure_installed(opts, {
-      "typst", "vim", "latex" }) end,
+    "AstroNvim/astrocore",
+    opts = function(_, opts)
+      require("myconfig.utils").ensure_installed(opts.treesitter,
+        { "typst", "latex" })
+    end,
   },
 }
 
