@@ -5,16 +5,6 @@
 local prefix = "<Leader>f"
 
 return {
-  {
-    "AstroNvim/astrocore",
-    opts = function(_, opts)
-      if opts.treesitter.ensure_installed ~= "all" then
-        opts.treesitter.ensure_installed = require("astrocore").list_insert_unique(
-          opts.treesitter.ensure_installed, { "html" })
-      end
-    end,
-  },
-
   -- TODO find alternatives
   -- {
   --   "luckasRanarison/nvim-devdocs",
