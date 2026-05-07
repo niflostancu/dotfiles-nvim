@@ -1,8 +1,4 @@
 {
   "mcpServers": {
-    "vectorcode": {
-      "command": "vectorcode-mcp-server",
-      "args": []
-    }
   }
 }

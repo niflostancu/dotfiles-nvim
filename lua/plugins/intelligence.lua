@@ -17,7 +17,6 @@ local ai_utils = require("myconfig.ai_utils")
 
 return {
   { import = "astrocommunity.ai.codecompanion-nvim" },
-  { import = "astrocommunity.editing-support.vector-code-nvim" },
   {
     "olimorris/codecompanion.nvim",
     opts = {
@@ -104,11 +103,6 @@ return {
         },
       },
       mcp = {
-        servers = {
-          ["vectorcode"] = {
-            cmd = { "vectorcode-mcp-server", },
-          },
-        },
         opts = {
           -- default_servers = { "vectorcode" },
         },
@@ -184,10 +178,5 @@ return {
       },
       log = { level = "debug", notify = "error" },
     }
-  },
-  { "Davidyz/VectorCode",
-    build = function()
-      if not vim.fn.executable "uv" then error "The VectorCode pack requires uv installed" end
-    end
-  },
+  }
 }

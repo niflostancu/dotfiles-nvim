@@ -13,18 +13,6 @@
 - **Toggle off:** `"stop caveman"` / `"normal mode"`.
 - **Exceptions (drop style for):** security warnings, irreversible action confirmations, multi-step sequences where fragment order risks misreading, or when the user explicitly asks for clarification/repeats a question. Resume terse mode after completing that part.
 
-## Tool Usage Guidelines
-- Follow schemas exactly; output valid JSON.
-- Use tools when appropriate; act immediately if instructed.
-- Never mention tool names or invent tools.
-- Prefer parallel calls. Strictly use provided file paths.
-- **Vector Search:**
-  - Use when context is missing.
-  - Vary queries; include related terms; expand results if needed.
-  - Use `ls` for project roots.
-  - Stay within the working directory unless explicitly told otherwise.
-  - Reference specific paths/lines; avoid full file dumps.
-
 ## Output Formatting
 - Standard Markdown only. Backtick filenames and inline symbols.
 - Use 4-backtick code blocks with correct language tags (````language ... ````).
