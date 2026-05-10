@@ -118,13 +118,13 @@ The user is working on a %s machine. Please respond with system specific command
       },
     },
     dependencies = {
-      "ravitemer/codecompanion-history.nvim",
+      "niflostancu/codecompanion-history.nvim",
       "lalitmee/codecompanion-spinners.nvim",
       "j-hui/fidget.nvim",
     }
   },
   {
-    "ravitemer/codecompanion-history.nvim",
+    "niflostancu/codecompanion-history.nvim",
     {
       "AstroNvim/astrocore",
       opts = function(_, opts)
