@@ -51,9 +51,16 @@ return {
         chat = {
           adapter = llm_defaults.default,
           opts = {
-            system_prompt = function ()
+            system_prompt = function (ctx)
               local lines = vim.fn.readfile(_G["myconfigpath"] .. "/intelligence/system-prompt.txt")
-              return table.concat(lines, "\n");
+              local prompt = table.concat(lines, "\n");
+              prompt = prompt .. string.format([[Additional context:
+The user's current working directory is %s.
+The current date is %s.
+The user's Neovim version is %s.
+The user is working on a %s machine. Please respond with system specific commands if applicable.
+]], ctx.cwd, ctx.date, ctx.nvim_version, ctx.os)
+              return prompt
             end,
           },
           tools = {
@@ -68,12 +75,14 @@ return {
         default = {
           description = "Default rules (+ use project-specific, if any)",
           files = llm_defaults.rules,
+          is_preset = true,
         },
         caveman = {
           description = "Caveman (brief) mode",
           files = vim.tbl_deep_extend('force', llm_defaults.rules, {
             { path = _G["myconfigpath"] .. "/intelligence/caveman.md", parser = "codecompanion" },
           }),
+          is_preset = true,
         },
         opts = {
           chat = { autoload = "caveman", enabled = true },
