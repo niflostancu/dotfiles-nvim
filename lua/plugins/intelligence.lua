@@ -10,7 +10,8 @@ local llm_defaults = {
     { path = "CLAUDE.md", parser = "claude" },
     { path = "CLAUDE.local.md", parser = "claude" },
     { path = _G["myconfigpath"] .. "/intelligence/default.md", parser = "codecompanion" },
-  }
+  },
+  ghidra_path = os.getenv("HOME") .. "/.local/ghidra_12.1"
 }
 
 local ai_utils = require("myconfig.ai_utils")
@@ -112,8 +113,17 @@ The user is working on a %s machine. Please respond with system specific command
         },
       },
       mcp = {
+        servers = {
+          ["codebase-memory"] = {
+            cmd = { "codebase-memory-mcp", },
+          },
+          ["ghidra"] = {
+            cmd = { llm_defaults.ghidra_path .. "/ghidra-mcp/.venv/bin/python3",
+              llm_defaults.ghidra_path .. "/ghidra-mcp/bridge_mcp_ghidra.py", },
+          },
+        },
         opts = {
-          -- default_servers = { "vectorcode" },
+          default_servers = { },
         },
       },
     },
