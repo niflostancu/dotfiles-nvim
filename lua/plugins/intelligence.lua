@@ -1,5 +1,5 @@
 local llm_defaults = {
-  default = "llama_cpp",
+  default = "goose",
   ollama_url = "http://127.0.0.1:11434",
   llama_cpp_url = "http://127.0.0.1:11444",
   model = "qwen3-coder-next_q4xl",
@@ -26,14 +26,6 @@ return {
           opts = {
             show_presets = false,
           },
-          ollama = function()
-            return require("codecompanion.adapters").extend("ollama", {
-              schema = {
-                model = { default = llm_defaults.model, },
-              },
-              env = { url = llm_defaults.ollama_url, },
-            })
-          end,
           llama_cpp = function()
             return require("codecompanion.adapters").extend("openai_compatible", {
               schema = {
@@ -45,6 +37,21 @@ return {
                 parse_message_meta = ai_utils.llama_cpp_parse_message_meta,
               },
             })
+          end,
+        },
+        acp = {
+          opts = {
+            show_presets = false,
+          },
+          goose = function()
+            return require("codecompanion.adapters").extend("goose", {
+              commands = {
+                default = { "/home/niflo/.local/bin/goose-agent.sh", "acp" },
+              },
+              defaults = {
+                mcpServers = "inherit_from_config",
+              },
+           })
           end,
         },
       },
@@ -86,7 +93,7 @@ The user is working on a %s machine. Please respond with system specific command
           is_preset = true,
         },
         opts = {
-          chat = { autoload = "caveman", enabled = true },
+          chat = { autoload = "default", enabled = true },
         },
       },
       opts = {
@@ -95,7 +102,7 @@ The user is working on a %s machine. Please respond with system specific command
       },
       extensions = {
         history = {
-          enabled = true,
+          enabled = false,
           opts = {
             auto_save = true,
             expiration_days = 0, -- do not delete
@@ -116,10 +123,6 @@ The user is working on a %s machine. Please respond with system specific command
         servers = {
           ["codebase-memory"] = {
             cmd = { "codebase-memory-mcp", },
-          },
-          ["ghidra"] = {
-            cmd = { llm_defaults.ghidra_path .. "/ghidra-mcp/.venv/bin/python3",
-              llm_defaults.ghidra_path .. "/ghidra-mcp/bridge_mcp_ghidra.py", },
           },
         },
         opts = {
@@ -153,12 +156,15 @@ The user is working on a %s machine. Please respond with system specific command
             local chat = require("codecompanion").buf_get_chat(args.data.bufnr)
             -- load stored model at creation
             local saved = ai_utils.cc_persist.load()
-            if saved then
-              chat:change_model({ model = saved.model })
-            end
+            -- if saved then
+            --   chat:change_model({ model = saved.model })
+            -- end
             -- add callback to save the current model
             chat:add_callback("on_closed", function(c, info)
-              local data = { model = chat.settings.model }
+              local data = {
+                adapter = chat.settings.adapter,
+                model = chat.settings.model
+              }
               ai_utils.cc_persist.save(data)
             end)
           end
@@ -167,22 +173,14 @@ The user is working on a %s machine. Please respond with system specific command
     },
   },
   {
-    -- sharedserver: for sharing MCP Companion between instances
-    "georgeharker/sharedserver",
-    build = "cargo install --path rust",
-    lazy = false,
-  },
-  {
     "georgeharker/mcp-companion",
     lazy = false,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "olimorris/codecompanion.nvim",
-      "georgeharker/sharedserver",
     },
-    build = "cd bridge && uv sync --frozen",
     opts = {
-      bridge = {
+      combiner = {
         config = _G["myconfigpath"] .. "/intelligence/mcp.json"
       },
       auto_approve = function(tool_name, server_name, ctx)
