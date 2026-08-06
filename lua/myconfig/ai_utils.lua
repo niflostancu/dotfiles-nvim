@@ -47,6 +47,49 @@ M.llama_cpp_parse_message_meta = function(self, data)
     return data
 end
 
+M.cc_pi_acp = function(name, command, defaults)
+    local helpers = require("codecompanion.adapters.acp.helpers")
+    return {
+        name = name,
+        formatted_name = "pi coding agent",
+        type = "acp",
+        roles = {
+            llm = "assistant",
+            user = "user",
+        },
+        commands = {
+            default = command
+        },
+        defaults = vim.tbl_deep_extend("force",
+            defaults or {}, {
+                mcpServers = {},
+                timeout = 20000,
+            }),
+        parameters = {
+            protocolVersion = 1,
+            clientCapabilities = {
+                fs = { readTextFile = true, writeTextFile = true },
+            },
+            clientInfo = {
+                name = "CodeCompanion.nvim",
+                version = "1.0.0",
+            },
+        },
+        handlers = {
+            setup = function(self)
+                return true
+            end,
+            auth = function(self)
+                return true
+            end,
+            form_messages = function(self, messages, capabilities)
+                return helpers.form_messages(self, messages, capabilities)
+            end,
+            on_exit = function(self, code) end,
+        },
+    }
+end
+
 -- CodeCompanion persistence utils
 M.cc_persist = {
     path = vim.fn.stdpath("state") .. "/codecompanion-last.json",

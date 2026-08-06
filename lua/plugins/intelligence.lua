@@ -46,13 +46,17 @@ return {
           goose = function()
             return require("codecompanion.adapters").extend("goose", {
               commands = {
-                default = { "/home/niflo/.local/bin/goose-agent.sh", "acp" },
+                default = { "goose-agent.sh", "acp" },
               },
               defaults = {
                 mcpServers = "inherit_from_config",
               },
            })
           end,
+          ["pi-acp"] = function()
+            local command = {"pi-agent.sh", "--cmd", "bunx", "-y", "pi-acp"}
+            return ai_utils.cc_pi_acp("pi-acp", command)
+          end
         },
       },
       interactions = {
