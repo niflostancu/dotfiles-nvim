@@ -105,17 +105,6 @@ The user is working on a %s machine. Please respond with system specific command
         show_model_choices = false,
       },
       extensions = {
-        history = {
-          enabled = false,
-          opts = {
-            auto_save = true,
-            expiration_days = 0, -- do not delete
-            auto_generate_title = true,
-            continue_last_chat = false,
-            delete_on_clearing_chat = false,
-            dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
-          }
-        },
         spinner = {
           enabled = true,
           opts = {
@@ -135,69 +124,40 @@ The user is working on a %s machine. Please respond with system specific command
       },
     },
     dependencies = {
-      "niflostancu/codecompanion-history.nvim",
       "lalitmee/codecompanion-spinners.nvim",
       "j-hui/fidget.nvim",
     }
   },
-  {
-    "niflostancu/codecompanion-history.nvim",
-    {
-      "AstroNvim/astrocore",
-      opts = function(_, opts)
-        if not opts.mappings then opts.mappings = {} end
-        opts.mappings.n = opts.mappings.n or {}
-        opts.mappings.n["<Leader>Ah"] = { "<cmd>CodeCompanionHistory<cr>", desc = "Chat History" }
-        opts.mappings.n[";i"] = { "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Code Companion" }
-        opts.mappings.v[";i"] = { "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Code Companion" }
-        opts.mappings.n[";I"] = { "<cmd>CodeCompanionHistory<cr>", desc = "Code Companion Chat History" }
 
-        opts.autocmds.ccompanion_persist_model = { {
-          event = "User",
-          desc = "Persist CodeCompanion model on chat open/close events",
-          pattern = "CodeCompanionChatCreated",
-          callback = function(args)
-            local chat = require("codecompanion").buf_get_chat(args.data.bufnr)
-            -- load stored model at creation
-            local saved = ai_utils.cc_persist.load()
-            -- if saved then
-            --   chat:change_model({ model = saved.model })
-            -- end
-            -- add callback to save the current model
-            chat:add_callback("on_closed", function(c, info)
-              local data = {
-                adapter = chat.settings.adapter,
-                model = chat.settings.model
-              }
-              ai_utils.cc_persist.save(data)
-            end)
-          end
-        } }
-      end,
-    },
-  },
   {
-    "georgeharker/mcp-companion",
-    lazy = false,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "olimorris/codecompanion.nvim",
-    },
-    opts = {
-      combiner = {
-        config = _G["myconfigpath"] .. "/intelligence/mcp.json"
-      },
-      auto_approve = function(tool_name, server_name, ctx)
-        -- auto-approve all read-only tools
-        if tool_name:match("^get_") or tool_name:match("^list_") then
-          return true
+    "AstroNvim/astrocore",
+    opts = function(_, opts)
+      if not opts.mappings then opts.mappings = {} end
+      opts.mappings.n = opts.mappings.n or {}
+      opts.mappings.n[";i"] = { "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Code Companion" }
+      opts.mappings.v[";i"] = { "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Code Companion" }
+
+      opts.autocmds.ccompanion_persist_model = { {
+        event = "User",
+        desc = "Persist CodeCompanion model on chat open/close events",
+        pattern = "CodeCompanionChatCreated",
+        callback = function(args)
+          local chat = require("codecompanion").buf_get_chat(args.data.bufnr)
+          -- load stored model at creation
+          local saved = ai_utils.cc_persist.load()
+          -- if saved then
+          --   chat:change_model({ model = saved.model })
+          -- end
+          -- add callback to save the current model
+          chat:add_callback("on_closed", function(c, info)
+            local data = {
+              adapter = chat.settings.adapter,
+              model = chat.settings.model
+            }
+            ai_utils.cc_persist.save(data)
+          end)
         end
-        return false
-      end,
-      ui = {
-        enabled = true, width = 0.5, height = 0.5, border = "rounded",
-      },
-      log = { level = "debug", notify = "error" },
-    }
-  }
+      } }
+    end,
+  },
 }
