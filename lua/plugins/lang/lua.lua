@@ -1,3 +1,6 @@
+local P = require "myconfig.profile"
+if not P.has("lang.lua") then return {} end
+
 return {
   {
     "AstroNvim/astrocommunity",

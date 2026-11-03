@@ -1,3 +1,6 @@
+local P = require "myconfig.profile"
+if not P.has("lang.web") then return {} end
+
 return {
   { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.pack.php" },

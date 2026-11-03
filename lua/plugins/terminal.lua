@@ -1,7 +1,10 @@
 -- Terminal integration plugins
 
+local P = require "myconfig.profile"
+
 return {
   { "aserowy/tmux.nvim",
+    enabled = P.has("tmux"),
     -- actually, AstroNVim bundles mrjones2014/smart-splits.nvim, so disabled
     -- for now
     enabled = false,

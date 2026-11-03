@@ -2,6 +2,9 @@
   Finder plugins & mappings.
 ]]
 
+local P = require "myconfig.profile"
+if not P.has("picker") then return {} end
+
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",

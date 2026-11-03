@@ -1,6 +1,9 @@
 -- AstroLSP allows you to customize the features in AstroNvim's LSP configuration engine
 -- Configuration documentation can be found with `:h astrolsp`
 
+local P = require "myconfig.profile"
+if not P.has("lang.lsp") then return {} end
+
 ---@type LazySpec
 return {
   "AstroNvim/astrolsp",

@@ -2,6 +2,9 @@
   Picker (fuzzy finder) plugins & mappings.
 ]]
 
+local P = require "myconfig.profile"
+if not P.has("picker") then return {} end
+
 return {
   {
     "folke/snacks.nvim",

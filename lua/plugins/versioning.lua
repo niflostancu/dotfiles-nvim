@@ -1,5 +1,8 @@
 -- Versioning Control System related configuration
 
+local P = require "myconfig.profile"
+if not P.has("git") then return {} end
+
 return {
   {
     "AstroNvim/astrocommunity",

@@ -1,3 +1,6 @@
+local P = require "myconfig.profile"
+if not P.has("lang.text") then return {} end
+
 return {
   -- Markdown TreeSitter + LSP
   { import = "astrocommunity.pack.markdown" },

@@ -1,5 +1,8 @@
 -- Session management plugins & customizations
 
+local P = require "myconfig.profile"
+if not P.has("session") then return {} end
+
 local dirsess_opts = require("myconfig.session_utils").dirsess_opts
 
 return {

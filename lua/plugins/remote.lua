@@ -1,3 +1,6 @@
+local P = require "myconfig.profile"
+if not P.has("sshfs") then return {} end
+
 return {
   {
     "nosduco/remote-sshfs.nvim",

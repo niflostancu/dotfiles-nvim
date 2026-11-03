@@ -1,3 +1,6 @@
+local P = require "myconfig.profile"
+if not P.has("ai") then return {} end
+
 local llm_defaults = {
   default = "goose",
   ollama_url = "http://127.0.0.1:11434",

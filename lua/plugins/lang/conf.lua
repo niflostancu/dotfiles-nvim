@@ -1,3 +1,6 @@
+local P = require "myconfig.profile"
+if not P.has("lang.conf") then return {} end
+
 return {
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.yaml" },

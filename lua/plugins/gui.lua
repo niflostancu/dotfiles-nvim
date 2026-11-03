@@ -2,6 +2,9 @@
   GUI customizations (Neovide).
 ]]
 
+local P = require "myconfig.profile"
+if not P.has("gui") then return {} end
+
 local dirsess_opts = require("myconfig.session_utils").dirsess_opts
 
 local change_scale_factor = function(delta)

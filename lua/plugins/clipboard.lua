@@ -2,6 +2,9 @@
   Clipboard-related plugins & configuration.
 ]]
 
+local P = require "myconfig.profile"
+if not P.has("clipboard") then return {} end
+
 return {
   { "AckslD/nvim-neoclip.lua",
     event = { "User AstroFile", "InsertEnter" },
