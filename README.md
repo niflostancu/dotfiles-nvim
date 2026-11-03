@@ -49,3 +49,28 @@ The [which-key](https://github.com/folke/which-key.nvim) shows further shortcuts
 - `;a` to show current file in explorer;
 - `;i` to toggle CodeCompanion AI chat panel;
 etc.
+
+## Machine Profiles
+
+Plugins & language configs can be enabled/disabled per machine via **profiles**
+(`full` = dev workstation, `light` = lightweight machine, `server` = minimal subset).
+Feature sets + hostname mapping are defined in
+[`lua/profiles.lua`](lua/profiles.lua).
+
+Profile resolution order:
+
+1. `NVIM_PROFILE` environment variable (`full` | `light` | `server`);
+2. `profile.local.lua` in `~/.config/{NVIM_APPNAME}/` (outside the repo —
+   relevant when the repo is loaded via a wrapper `init.lua`, see
+   [`misc/init-template.lua`](misc/init-template.lua));
+3. `profile.local.lua` in the repo root (gitignored) — copy
+   [`misc/profile.local-example.lua`](misc/profile.local-example.lua) and edit;
+4. hostname map (the `_hostnames` key in `lua/profiles.lua`);
+5. default: `full`.
+
+On a new machine: `cp misc/profile.local-example.lua profile.local.lua` (either
+in the config dir or on repo root) and set the profile.
+Per-machine feature overrides are possible via the table form
+(`{ profile = "server", extra = { picker = true } }`).
+
+`:MyProfile` shows the active profile and its features.
